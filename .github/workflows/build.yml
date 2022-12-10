@@ -1,0 +1,40 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK for running Gradle
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Simple
+        run: ./mvnw package
+        working-directory: simple
+
+      - name: Simple Gradle (Groovy DSL)
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+          build-root-directory: simple-gradle-groovy-dsl
+
+      - name: Simple Gradle (Kotlin DSL)
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+          build-root-directory: simple-gradle-kotlin-dsl
