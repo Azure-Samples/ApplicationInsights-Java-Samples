@@ -1,4 +1,4 @@
-# Simple Maven example
+# Basic example
 
 To run, from this directory:
 

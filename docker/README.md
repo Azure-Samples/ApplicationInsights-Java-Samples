@@ -1,4 +1,4 @@
-# Simple Maven example
+# Docker example
 
 To run, from this directory:
 

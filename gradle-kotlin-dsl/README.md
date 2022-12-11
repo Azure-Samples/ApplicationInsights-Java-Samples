@@ -1,4 +1,4 @@
-# Simple Gradle (Groovy DSL) example
+# Basic Gradle (Kotlin DSL) example
 
 To run, from this directory:
 
