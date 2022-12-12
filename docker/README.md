@@ -4,6 +4,6 @@ To run, from this directory:
 
 ```
 ./mvnw package
-export APPLICATIONINSIGHTS_CONNECTION_STRING=<Copy connection string from Application Insights Resource Overview>
-java -javaagent:target/agent/applicationinsights-agent.jar -jar target/simple-1.0-SNAPSHOT.jar
+docker build -t <tag> .
+docker run -p 8080:8080 -e APPLICATIONINSIGHTS_CONNECTION_STRING=<Copy connection string from Application Insights Resource Overview> <tag>
 ```

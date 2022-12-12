@@ -23,18 +23,24 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Simple
+      - name: Maven
         run: ./mvnw package
-        working-directory: simple
+        working-directory: maven
 
-      - name: Simple Gradle (Groovy DSL)
+      - name: Gradle (Groovy DSL)
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
-          build-root-directory: simple-gradle-groovy-dsl
+          build-root-directory: gradle-groovy-dsl
 
-      - name: Simple Gradle (Kotlin DSL)
+      - name: Gradle (Kotlin DSL)
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
-          build-root-directory: simple-gradle-kotlin-dsl
+          build-root-directory: gradle-kotlin-dsl
+
+      - name: Docker
+        run: |
+          ./mvnw package
+          docker build .
+        working-directory: docker
