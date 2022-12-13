@@ -1,0 +1,46 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK for running Gradle
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Maven
+        run: ./mvnw package
+        working-directory: maven
+
+      - name: Gradle (Groovy DSL)
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+          build-root-directory: gradle-groovy-dsl
+
+      - name: Gradle (Kotlin DSL)
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: build
+          build-root-directory: gradle-kotlin-dsl
+
+      - name: Docker
+        run: |
+          ./mvnw package
+          docker build .
+        working-directory: docker

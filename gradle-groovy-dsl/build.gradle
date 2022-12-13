@@ -1,0 +1,38 @@
+plugins {
+  id 'java'
+  id 'org.springframework.boot' version '2.7.6'
+  id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = '8'
+
+repositories {
+  mavenCentral()
+}
+
+configurations {
+  // create a separate configuration for the agent since it should not be a normal dependency
+  agent
+}
+
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  agent 'com.microsoft.azure:applicationinsights-agent:3.4.6'
+}
+
+def copyAgent = tasks.register('copyAgent', Copy) {
+  from configurations.agent.singleFile
+  into layout.buildDirectory.dir('agent')
+  rename 'applicationinsights-agent-.*\\.jar', 'applicationinsights-agent.jar'
+}
+
+bootJar {
+  archiveFileName = 'app.jar'
+}
+
+assemble {
+  dependsOn copyAgent
+}
