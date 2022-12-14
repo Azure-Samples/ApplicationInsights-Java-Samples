@@ -25,7 +25,6 @@ jobs:
 
       - name: Maven
         run: ./mvnw package
-        working-directory: maven
 
       - name: Gradle (Groovy DSL)
         uses: gradle/gradle-build-action@v2
@@ -38,9 +37,3 @@ jobs:
         with:
           arguments: build
           build-root-directory: gradle-kotlin-dsl
-
-      - name: Docker
-        run: |
-          ./mvnw package
-          docker build .
-        working-directory: docker
