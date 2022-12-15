@@ -3,13 +3,11 @@
 
 package com.example;
 
-import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanContext;
 import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.api.trace.TraceFlags;
 import io.opentelemetry.api.trace.TraceState;
-import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.context.Scope;
 import io.opentelemetry.instrumentation.annotations.WithSpan;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +25,6 @@ import java.util.concurrent.Executors;
 
 @RestController
 public class ExampleController {
-
-    private static final Tracer tracer = GlobalOpenTelemetry.getTracer("com.example");
 
     @GetMapping("/")
     public String root() throws IOException {
