@@ -12,6 +12,7 @@
   <modules>
     <module>maven</module>
     <module>docker</module>
+    <module>advanced/manual-trace-propagation</module>
   </modules>
 
 </project>
