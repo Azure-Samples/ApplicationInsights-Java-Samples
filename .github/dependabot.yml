@@ -7,15 +7,27 @@ updates:
 
   - package-ecosystem: "maven"
     directory: "/"
+    ignore:
+      - dependency-name: "org.springframework.boot:spring-boot-starter-parent"
+        # Spring Boot 3 would limit samples to only run on Java 17
+        versions: [ "[3,)" ]
     schedule:
       interval: "daily"
 
   - package-ecosystem: "gradle"
     directory: "/gradle-groovy-dsl"
+    ignore:
+      - dependency-name: "org.springframework.boot"
+        # Spring Boot 3 would limit samples to only run on Java 17
+        versions: [ "[3,)" ]
     schedule:
       interval: "daily"
 
   - package-ecosystem: "gradle"
     directory: "/gradle-kotlin-dsl"
+    ignore:
+      - dependency-name: "org.springframework.boot"
+        # Spring Boot 3 would limit samples to only run on Java 17
+        versions: [ "[3,)" ]
     schedule:
       interval: "daily"
