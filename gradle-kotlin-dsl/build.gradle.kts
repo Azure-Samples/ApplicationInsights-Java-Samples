@@ -18,7 +18,7 @@ val agent: Configuration by configurations.creating
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
-  agent("com.microsoft.azure:applicationinsights-agent:3.4.7")
+  agent("com.microsoft.azure:applicationinsights-agent:3.4.8")
 }
 
 val copyAgent = tasks.register<Copy>("copyAgent") {
