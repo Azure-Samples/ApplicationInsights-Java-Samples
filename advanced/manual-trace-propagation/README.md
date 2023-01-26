@@ -14,3 +14,7 @@ After a couple of minutes, you should be able to see a distributed trace in the 
 transaction details similar to
 
 ![End-to-end transaction details](e2e.png)
+
+## References
+
+https://opentelemetry.io/docs/instrumentation/java/manual/#context-propagation
