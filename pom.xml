@@ -13,6 +13,7 @@
     <module>maven</module>
     <module>docker</module>
     <module>advanced/manual-trace-propagation</module>
+    <module>advanced/2x</module>
   </modules>
 
 </project>
