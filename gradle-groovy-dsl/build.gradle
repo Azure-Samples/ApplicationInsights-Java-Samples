@@ -20,7 +20,7 @@ configurations {
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
-  agent 'com.microsoft.azure:applicationinsights-agent:3.4.9'
+  agent 'com.microsoft.azure:applicationinsights-agent:3.4.10'
 }
 
 def copyAgent = tasks.register('copyAgent', Copy) {
