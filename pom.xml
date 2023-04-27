@@ -13,6 +13,8 @@
     <module>maven</module>
     <module>docker</module>
     <module>advanced/manual-trace-propagation</module>
+    <module>advanced/migration-2x</module>
+    <module>advanced/migration-3x</module>
   </modules>
 
 </project>
