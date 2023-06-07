@@ -1,4 +1,5 @@
 rootProject.name = 'opentelemetry'
 include 'TrackTrace'
 include 'TrackException'
+include 'TrackDependency'
 
