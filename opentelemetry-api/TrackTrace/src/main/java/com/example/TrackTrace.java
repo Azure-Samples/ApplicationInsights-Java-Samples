@@ -32,11 +32,11 @@ public class TrackTrace {
 
     // track a trace
     trackWithLogback();
-    Thread.sleep(6000); // wait at least 5 seconds to give batch span processor time to export
+    Thread.sleep(6000); // wait at least 5 seconds to give batch LogRecord processor time to export
 
     // track a trace using log4j2
     trackWithLog4j2();
-    Thread.sleep(6000); // wait at least 5 seconds to give batch span processor time to export
+    Thread.sleep(6000); // wait at least 5 seconds to give batch LogRecord processor time to export
   }
 
   /**

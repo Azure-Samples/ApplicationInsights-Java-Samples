@@ -40,7 +40,7 @@ public class TrackException {
   }
 
   static void trackWithLog4j2() {
-    log4jLogger.error("This is an exception from log4j2", new Exception("my exception name"));
+    log4jLogger.error("This is an exception from log4j2", new Exception("my exception"));
   }
 
   private static Tracer initTracer() {
