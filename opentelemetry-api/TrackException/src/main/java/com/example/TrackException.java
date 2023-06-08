@@ -1,7 +1,6 @@
 package com.example;
 
 import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
-import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.api.trace.Tracer;
@@ -41,16 +40,7 @@ public class TrackException {
   }
 
   static void trackWithLog4j2() {
-    Span span = GlobalOpenTelemetry.getTracer("TrackException").spanBuilder("TrackException").startSpan();
-    // put the span into the current Context
-    try (Scope scope = span.makeCurrent()) {
-      log4jLogger.error("This is an exception from log4j2");
-    } catch (Throwable throwable) {
-      span.setStatus(StatusCode.ERROR, "Something bad happened!");
-      span.recordException(throwable);
-    } finally {
-      span.end(); // Cannot set a span after this call
-    }
+    log4jLogger.error("This is an exception from log4j2", new Exception("my exception name"));
   }
 
   private static Tracer initTracer() {
@@ -68,6 +58,6 @@ public class TrackException {
         .setTracerProvider(tracerProvider)
         .buildAndRegisterGlobal();
 
-    return sdk.getTracer("TrackException");
+    return sdk.getTracer("my tracer name");
   }
 }

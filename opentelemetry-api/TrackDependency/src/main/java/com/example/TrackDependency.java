@@ -24,7 +24,7 @@ public class TrackDependency {
   }
 
   private static void track() {
-    Span span = spanTracer.spanBuilder("trackDependency").setSpanKind(SpanKind.CLIENT).startSpan();
+    Span span = spanTracer.spanBuilder("dependency name").setSpanKind(SpanKind.CLIENT).startSpan();
     // Make the span the current span
     try (Scope scope = span.makeCurrent()) {
       span.setAttribute("http.method", "GET");
@@ -50,6 +50,6 @@ public class TrackDependency {
         .setTracerProvider(tracerProvider)
         .buildAndRegisterGlobal();
 
-    return sdk.getTracer("TrackDependency");
+    return sdk.getTracer("my tracer name");
   }
 }

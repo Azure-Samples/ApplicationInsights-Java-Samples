@@ -12,5 +12,5 @@ How to run it:
 
 ```kusto
 dependencies
-| where name == 'trackDependency'
+| where name == 'dependency name'
 ```

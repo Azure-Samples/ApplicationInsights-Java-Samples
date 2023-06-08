@@ -11,8 +11,6 @@
             <AppenderRef ref="OpenTelemetryAppender" />
             <AppenderRef ref="ConsoleAppender" />
         </Root>
-        <Logger name="com.azure.monitor.opentelemetry.exporter" level="DEBUG">
-            <AppenderRef ref="ConsoleAppender" />
-        </Logger>
+        <Logger name="com.azure.monitor.opentelemetry.exporter" level="DEBUG"/>
     </Loggers>
 </Configuration>
