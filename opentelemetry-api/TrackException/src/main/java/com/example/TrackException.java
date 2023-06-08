@@ -1,11 +1,15 @@
 package com.example;
 
 import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
+import io.opentelemetry.api.logs.GlobalLoggerProvider;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.context.Scope;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
+import io.opentelemetry.sdk.logs.SdkLoggerProvider;
+import io.opentelemetry.sdk.logs.export.BatchLogRecordProcessor;
+import io.opentelemetry.sdk.logs.export.LogRecordExporter;
 import io.opentelemetry.sdk.trace.SdkTracerProvider;
 import io.opentelemetry.sdk.trace.export.BatchSpanProcessor;
 import io.opentelemetry.sdk.trace.export.SpanExporter;
@@ -44,19 +48,31 @@ public class TrackException {
   }
 
   private static Tracer initTracer() {
-    // Create Azure Monitor exporter and configure OpenTelemetry tracer to use this exporter
+    // Create Azure Monitor spanExporter and configure OpenTelemetry tracer to use this spanExporter
     // This should be done just once when application starts up
-    SpanExporter exporter = new AzureMonitorExporterBuilder()
+    SpanExporter spanExporter = new AzureMonitorExporterBuilder()
         .connectionString(CONNECTION_STRING)
         .buildTraceExporter();
 
+    LogRecordExporter logRecordExporter = new AzureMonitorExporterBuilder()
+        .connectionString(CONNECTION_STRING)
+        .buildLogRecordExporter();
+
     SdkTracerProvider tracerProvider = SdkTracerProvider.builder()
-        .addSpanProcessor(BatchSpanProcessor.builder(exporter).build())
+        .addSpanProcessor(BatchSpanProcessor.builder(spanExporter).build())
         .build();
 
     OpenTelemetrySdk sdk = OpenTelemetrySdk.builder()
         .setTracerProvider(tracerProvider)
         .buildAndRegisterGlobal();
+
+    // In this example Log4j2 log events will be sent to both the console appender and
+    // the `OpenTelemetryAppender`, which will drop the logs until `GlobalLoggerProvider.set(..)` is
+    // called. Once initialized, logs will be emitted to a `Logger` obtained from the `SdkLoggerProvider`.
+    SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
+        .addLogRecordProcessor(BatchLogRecordProcessor.builder(logRecordExporter).build())
+        .build();
+    GlobalLoggerProvider.set(sdkLoggerProvider);
 
     return sdk.getTracer("my tracer name");
   }
