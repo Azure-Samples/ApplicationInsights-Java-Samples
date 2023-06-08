@@ -21,10 +21,10 @@ public class TrackException {
 
   public static void main(String[] args) throws InterruptedException {
     track();
-    Thread.sleep(6000);
+    Thread.sleep(6000); // wait at least 5 seconds to give batch span processor time to export
 
     trackWithLog4j2();
-    Thread.sleep(6000);
+    Thread.sleep(6000); // wait at least 5 seconds to give batch span processor time to export
   }
 
   private static void track() {
