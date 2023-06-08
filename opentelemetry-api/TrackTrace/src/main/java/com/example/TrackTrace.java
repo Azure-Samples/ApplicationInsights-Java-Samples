@@ -50,8 +50,8 @@ public class TrackTrace {
                 .atInfo()
                 .setMessage("trackWithLogback - a slf4j log message with custom attributes")
                 .addKeyValue("key", "trackWithLogback")
-                .log());
-    runWithASpan(() -> slf4jLogger.info("trackWithLogback - a slf4j log message 2 without custom attributes"));
+                .log(), true);
+    runWithASpan(() -> slf4jLogger.info("trackWithLogback - a slf4j log message 2 without custom attributes"), false);
   }
 
   /**
@@ -62,9 +62,9 @@ public class TrackTrace {
     Map<String, Object> mapMessage = new HashMap<>();
     mapMessage.put("key", "trackWithLog4j2");
     mapMessage.put("message", "trackWithLog4j2 - it's a log4j2 message with custom attributes");
-    runWithASpan(() -> log4jLogger.info(new MapMessage<>(mapMessage)));
+    runWithASpan(() -> log4jLogger.info(new MapMessage<>(mapMessage)), true);
     ThreadContext.clearAll();
-    runWithASpan(() -> log4jLogger.info("trackWithLog4j2 - a log4j log message without custom attributes"));
+    runWithASpan(() -> log4jLogger.info("trackWithLog4j2 - a log4j log message without custom attributes"), false);
   }
 
   /**
@@ -95,7 +95,11 @@ public class TrackTrace {
     Runtime.getRuntime().addShutdownHook(new Thread(sdk::close));
   }
 
-  static void runWithASpan(Runnable runnable) {
+  static void runWithASpan(Runnable runnable, boolean withSpan) {
+    if (!withSpan) {
+      runnable.run();
+      return;
+    }
     Span span = GlobalOpenTelemetry.getTracer("my-tracer").spanBuilder("my-span").startSpan();
     try (Scope ignore = span.makeCurrent()) {
       runnable.run();
