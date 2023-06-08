@@ -15,6 +15,7 @@
     <module>advanced/manual-trace-propagation</module>
     <module>advanced/migration-2x</module>
     <module>advanced/migration-3x</module>
+      <module>opentelemetry-api</module>
   </modules>
 
 </project>
