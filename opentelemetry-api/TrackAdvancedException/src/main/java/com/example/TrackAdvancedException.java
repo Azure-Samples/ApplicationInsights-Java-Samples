@@ -27,15 +27,7 @@ public class TrackAdvancedException {
   }
 
   private static void trackAdvancedException() {
-    Exception exception = new Exception("my exception");
-    StackTraceElement[] stackTraceElements = new StackTraceElement[] {
-        new StackTraceElement("declaringClass1", "methodName1", "filename1", 123),
-        new StackTraceElement("declaringClass2", "methodName2", "filename2", 456),
-        new StackTraceElement("declaringClass3", "methodName3", "filename3", 789)
-
-    };
-    exception.setStackTrace(stackTraceElements);
-    log4jLogger.error("This is an advanced exception from log4j2", exception);
+    log4jLogger.error("This is an advanced exception from log4j2", new AdvancedException("my exception"));
   }
 
   private static void initOpenTelemetry() {
