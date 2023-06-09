@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 public class TrackAdvancedException {
 
   private static final String CONNECTION_STRING = "<Your Connection String>";
-  private static final Logger log4jLogger = LogManager.getLogger("log4j-logger");
+  private static final Logger log4jLogger = LogManager.getLogger(TrackAdvancedException.class);
 
   public static void main(String[] args) throws InterruptedException {
     initOpenTelemetry();
@@ -27,11 +27,11 @@ public class TrackAdvancedException {
   }
 
   private static void trackAdvancedException() {
-    Exception exception = new Exception(("my exception"));
+    Exception exception = new Exception("my exception");
     StackTraceElement[] stackTraceElements = new StackTraceElement[] {
-        new StackTraceElement("classLoaderName", "moduleName", "1.0", "declaringClass1", "methodName1", "filename1", 123),
-        new StackTraceElement("classLoaderName", "moduleName", "1.0", "declaringClass2", "methodName2", "filename2", 456),
-        new StackTraceElement("classLoaderName", "moduleName", "1.0", "declaringClass3", "methodName3", "filename3", 789)
+        new StackTraceElement("declaringClass1", "methodName1", "filename1", 123),
+        new StackTraceElement("declaringClass2", "methodName2", "filename2", 456),
+        new StackTraceElement("declaringClass3", "methodName3", "filename3", 789)
 
     };
     exception.setStackTrace(stackTraceElements);
