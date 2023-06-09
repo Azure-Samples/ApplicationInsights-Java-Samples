@@ -13,58 +13,33 @@ import io.opentelemetry.sdk.logs.export.LogRecordExporter;
 import io.opentelemetry.sdk.resources.Resource;
 import io.opentelemetry.sdk.trace.SdkTracerProvider;
 import io.opentelemetry.sdk.trace.samplers.Sampler;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.ThreadContext;
-import org.apache.logging.log4j.message.MapMessage;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class TrackTrace {
+public class TrackLogback {
 
   private static final String CONNECTION_STRING = "<Your Connection String>";
-  private static final org.apache.logging.log4j.Logger log4jLogger = LogManager.getLogger("log4j-logger");
   private static final org.slf4j.Logger slf4jLogger = LoggerFactory.getLogger("slf4j-logger");
 
   public static void main(String[] args) throws InterruptedException {
     initOpenTelemetry();
 
-    // track a trace
-    trackWithLogback();
-    Thread.sleep(6000); // wait at least 5 seconds to give batch LogRecord processor time to export
-
-    // track a trace using log4j2
-    trackWithLog4j2();
+    trackWithSlf4j();
     Thread.sleep(6000); // wait at least 5 seconds to give batch LogRecord processor time to export
   }
 
   /**
-   * track with Logback using sl4j
+   * track with logback using slf4j
    */
-  private static void trackWithLogback() {
+  private static void trackWithSlf4j() {
     // Log using slf4j API w/ logback backend
     runWithASpan(
         () ->
             slf4jLogger
                 .atInfo()
-                .setMessage("trackWithLogback - a slf4j log message with custom attributes")
+                .setMessage("trackWithSlf4j - a slf4j log message with custom attributes")
                 .addKeyValue("key", "trackWithLogback")
                 .log(), true);
-    runWithASpan(() -> slf4jLogger.info("trackWithLogback - a slf4j log message 2 without custom attributes"), false);
-  }
-
-  /**
-   * track with Log4j2
-   */
-  private static void trackWithLog4j2() {
-    // Log using log4j2 API
-    Map<String, Object> mapMessage = new HashMap<>();
-    mapMessage.put("key", "trackWithLog4j2");
-    mapMessage.put("message", "trackWithLog4j2 - it's a log4j2 message with custom attributes");
-    runWithASpan(() -> log4jLogger.info(new MapMessage<>(mapMessage)), true);
-    ThreadContext.clearAll();
-    runWithASpan(() -> log4jLogger.info("trackWithLog4j2 - a log4j log message without custom attributes"), false);
+    runWithASpan(() -> slf4jLogger.info("trackWithSlf4j - a slf4j log message 2 without custom attributes"), false);
   }
 
   /**
