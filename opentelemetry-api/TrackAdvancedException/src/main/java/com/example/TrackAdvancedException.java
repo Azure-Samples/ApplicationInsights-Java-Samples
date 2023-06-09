@@ -27,7 +27,7 @@ public class TrackAdvancedException {
   }
 
   private static void trackAdvancedException() {
-    log4jLogger.error("This is an advanced exception from log4j2", new AdvancedException("my exception"));
+    log4jLogger.error("This is an exception with custom stack trace from log4j2", new AdvancedException("my exception"));
   }
 
   private static void initOpenTelemetry() {

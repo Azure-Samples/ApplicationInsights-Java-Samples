@@ -13,5 +13,5 @@ How to run it:
 ```kusto
 exceptions
 | extend message = tostring(customDimensions.["Logger Message"])
-| where message == 'This is an advanced exception from log4j2'
+| where message == 'This is an exception with custom stack trace from log4j2'
 ```
