@@ -81,7 +81,7 @@ public class TrackTrace {
                 SdkLoggerProvider.builder()
                     .setResource(
                         Resource.getDefault().toBuilder()
-                            .put(ResourceAttributes.SERVICE_NAME, "track-trace-example")
+                            .put(ResourceAttributes.SERVICE_NAME, "my cloud role name")
                             .build())
                     .addLogRecordProcessor(
                         BatchLogRecordProcessor.builder(logRecordExporter).build())
