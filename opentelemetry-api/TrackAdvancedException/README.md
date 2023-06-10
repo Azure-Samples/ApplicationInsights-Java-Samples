@@ -9,9 +9,10 @@ How to run it:
 - Verify there is a log entry that starts with something as follows:
   `{"ver":1,"name":"Exception","time":`
 - After it's finished running, go to Application Insights portal logs blade, query the following:
-
-```kusto
-exceptions
-| extend message = tostring(customDimensions.["Logger Message"])
-| where message == 'This is an exception with custom stack trace from log4j2'
-```
+  ```kusto
+  exceptions
+  | extend message = tostring(customDimensions.["Logger Message"])
+  | where message == 'This is an exception with custom stack trace from log4j2'
+  ```
+- Go to `Transaction search` -> `End-to-end transaction details`, the advanced exception will look like this:
+  ![image info](./images/advanced-exception-detail.png)
