@@ -11,6 +11,10 @@
             <AppenderRef ref="OpenTelemetryAppender" />
             <AppenderRef ref="ConsoleAppender" />
         </Root>
-        <Logger name="com.azure.monitor.opentelemetry.exporter" level="DEBUG"/>
+        <!-- using additivity false to avoid circularly sending the log exporter's logs back through
+             the OpenTelemetryAppender and back to the log exporter -->
+        <Logger name="com.azure.monitor.opentelemetry.exporter" level="DEBUG" additivity="false">
+          <AppenderRef ref="ConsoleAppender" />
+        </Logger>
     </Loggers>
 </Configuration>
