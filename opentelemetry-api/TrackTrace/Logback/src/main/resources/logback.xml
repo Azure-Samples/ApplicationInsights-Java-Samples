@@ -16,8 +16,6 @@
         <appender-ref ref="console"/>
         <appender-ref ref="OpenTelemetry"/>
     </root>
-    <logger name="com.azure.monitor.opentelemetry.exporter" level="DEBUG" additivity="false">
-      <appender-ref ref="console"/>
-    </logger>
+    <logger name="com.azure.monitor.opentelemetry.exporter" level="DEBUG"/>
 
 </configuration>

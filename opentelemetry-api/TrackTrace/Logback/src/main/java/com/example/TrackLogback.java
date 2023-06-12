@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 public class TrackLogback {
 
-  private static final String CONNECTION_STRING = "<Your Connection String>";
+  private static final String CONNECTION_STRING = "InstrumentationKey=afbcd285-0b88-4a9b-b6cf-7399d9ed28e8;IngestionEndpoint=https://westus2-2.in.applicationinsights.azure.com/;LiveEndpoint=https://westus2.livediagnostics.monitor.azure.com/";
   private static final org.slf4j.Logger slf4jLogger = LoggerFactory.getLogger("slf4j-logger");
 
   public static void main(String[] args) throws InterruptedException {
