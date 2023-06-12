@@ -12,10 +12,12 @@
         <captureExperimentalAttributes>true</captureExperimentalAttributes>
         <captureKeyValuePairAttributes>true</captureKeyValuePairAttributes>
     </appender>
-    <logger name="com.azure.monitor.opentelemetry.exporter" level="DEBUG"/>
     <root level="INFO">
         <appender-ref ref="console"/>
         <appender-ref ref="OpenTelemetry"/>
     </root>
+    <logger name="com.azure.monitor.opentelemetry.exporter" level="DEBUG" additivity="false">
+      <appender-ref ref="console"/>
+    </logger>
 
 </configuration>
