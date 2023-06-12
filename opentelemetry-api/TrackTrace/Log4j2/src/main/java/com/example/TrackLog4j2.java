@@ -82,6 +82,7 @@ public class TrackLog4j2 {
                     .setResource(
                         Resource.getDefault().toBuilder()
                             .put(ResourceAttributes.SERVICE_NAME, "my cloud role name")
+                            .put(ResourceAttributes.SERVICE_INSTANCE_ID, "my cloud role instance")
                             .build())
                     .addLogRecordProcessor(
                         BatchLogRecordProcessor.builder(logRecordExporter).build())
