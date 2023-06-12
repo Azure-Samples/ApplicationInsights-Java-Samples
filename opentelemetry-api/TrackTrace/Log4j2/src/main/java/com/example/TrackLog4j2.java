@@ -17,6 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.ThreadContext;
 import org.apache.logging.log4j.message.MapMessage;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class TrackLog4j2 {
 
   private static final String CONNECTION_STRING = "<Your Connection String>";
   private static final org.apache.logging.log4j.Logger log4jLogger = LogManager.getLogger("log4j-logger");
-  private static final org.slf4j.Logger slf4jLogger = LoggerFactory.getLogger("slf4j-logger");
+  private static final org.slf4j.Logger slf4jLogger = LoggerFactory.getLogger(TrackLog4j2.class);
 
   public static void main(String[] args) throws InterruptedException {
     initOpenTelemetry();
@@ -47,9 +48,9 @@ public class TrackLog4j2 {
     Map<String, Object> mapMessage = new HashMap<>();
     mapMessage.put("key", "track");
     mapMessage.put("message", "track - it's a log4j2 message with custom attributes");
-    runWithASpan(() -> log4jLogger.info(new MapMessage<>(mapMessage)), true);
+    runWithASpan(() -> log4jLogger.warn(new MapMessage<>(mapMessage)), true);
     ThreadContext.clearAll();
-    runWithASpan(() -> log4jLogger.info("track - a log4j2 log message without custom attributes"), false);
+    runWithASpan(() -> log4jLogger.error("track - a log4j2 log message without custom attributes"), false);
   }
 
   /**
@@ -60,11 +61,12 @@ public class TrackLog4j2 {
     runWithASpan(
         () ->
             slf4jLogger
-                .atInfo()
+                .atWarn()
                 .setMessage("trackWithSlf4j - a slf4j log message with custom attributes")
                 .addKeyValue("key", "trackWithSlf4j")
                 .log(), true);
-    runWithASpan(() -> slf4jLogger.info("trackWithSlf4j - a slf4j log message without custom attributes"), false);
+
+    runWithASpan(() -> slf4jLogger.error("trackWithSlf4j - a slf4j log message without custom attributes"), false);
   }
 
   /**
@@ -99,7 +101,9 @@ public class TrackLog4j2 {
     }
     Span span = GlobalOpenTelemetry.getTracer("my tracer name").spanBuilder("my span name").startSpan();
     try (Scope ignore = span.makeCurrent()) {
+      MDC.put("MDC key", "MDC value");
       runnable.run();
+      MDC.remove("MDC key");
     } finally {
       span.end();
     }

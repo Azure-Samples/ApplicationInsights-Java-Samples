@@ -14,6 +14,7 @@ import io.opentelemetry.sdk.resources.Resource;
 import io.opentelemetry.sdk.trace.SdkTracerProvider;
 import io.opentelemetry.sdk.trace.samplers.Sampler;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 public class TrackLogback {
 
@@ -35,11 +36,11 @@ public class TrackLogback {
     runWithASpan(
         () ->
             slf4jLogger
-                .atInfo()
+                .atWarn()
                 .setMessage("trackWithSlf4j - a slf4j log message with custom attributes")
                 .addKeyValue("key", "trackWithLogback")
                 .log(), true);
-    runWithASpan(() -> slf4jLogger.info("trackWithSlf4j - a slf4j log message 2 without custom attributes"), false);
+    runWithASpan(() -> slf4jLogger.error("trackWithSlf4j - a slf4j log message 2 without custom attributes"), false);
   }
 
   /**
@@ -74,7 +75,9 @@ public class TrackLogback {
     }
     Span span = GlobalOpenTelemetry.getTracer("my tracer name").spanBuilder("my span name").startSpan();
     try (Scope ignore = span.makeCurrent()) {
+      MDC.put("MDC key", "MDC value");
       runnable.run();
+      MDC.remove("MDC key");
     } finally {
       span.end();
     }
