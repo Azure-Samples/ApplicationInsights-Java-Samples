@@ -4,6 +4,11 @@ import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
 import com.azure.monitor.opentelemetry.exporter.implementation.ResourceAttributes;
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.logs.GlobalLoggerProvider;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.SpanContext;
+import io.opentelemetry.api.trace.TraceFlags;
+import io.opentelemetry.api.trace.TraceState;
+import io.opentelemetry.context.Scope;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
 import io.opentelemetry.sdk.logs.SdkLoggerProvider;
 import io.opentelemetry.sdk.logs.export.BatchLogRecordProcessor;
@@ -13,6 +18,10 @@ import io.opentelemetry.sdk.trace.SdkTracerProvider;
 import io.opentelemetry.sdk.trace.samplers.Sampler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.message.MapMessage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrackAdvancedException {
 
@@ -27,7 +36,18 @@ public class TrackAdvancedException {
   }
 
   private static void trackAdvancedException() {
-    log4jLogger.error("This is an exception with custom stack trace from log4j2", new AdvancedException("my exception"));
+    // traceIdHex must be a 32-hex-character lowercase string
+    // spanIdHex must be a 16-hex-character lowercase string
+    // if traceIdHex or spanIdHex is invalid, it will result to SpanContext.INVALID
+    // only when traceIdHex and spanIdHex are valid, operation_Id and operation_ParentId will get stamped onto the advanced exception
+    // in this example, "ff01020304050600ff0a0b0c0d0e0f00" is your operation_id and "090a0b0c0d0e0f00" is your operation_SpanId
+    SpanContext spanContext = SpanContext.create("ff01020304050600ff0a0b0c0d0e0f00", "090a0b0c0d0e0f00", TraceFlags.getSampled(), TraceState.getDefault());
+    try (Scope ignored = Span.wrap(spanContext).makeCurrent()) {
+      Map<String, Object> mapMessage = new HashMap<>();
+      mapMessage.put("key", "trackAdvancedException"); // add a custom dimension
+      mapMessage.put("message", "This is an exception with custom stack trace from log4j2");
+      log4jLogger.error(new MapMessage<>(mapMessage), new AdvancedException("my exception"));
+    }
   }
 
   private static void initOpenTelemetry() {
@@ -42,6 +62,7 @@ public class TrackAdvancedException {
                     .setResource(
                         Resource.getDefault().toBuilder()
                             .put(ResourceAttributes.SERVICE_NAME, "my cloud role name")
+                            .put(ResourceAttributes.SERVICE_INSTANCE_ID, "my cloud instance id")
                             .build())
                     .addLogRecordProcessor(
                         BatchLogRecordProcessor.builder(logRecordExporter).build())
