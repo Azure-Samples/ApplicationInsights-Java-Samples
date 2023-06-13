@@ -36,6 +36,7 @@ public class TrackAdvancedException {
     // spanIdHex must be a 16-hex-character lowercase string
     // if traceIdHex or spanIdHex is invalid, it will result to SpanContext.INVALID
     // only when traceIdHex and spanIdHex are valid, operation_Id and operation_ParentId will get stamped onto the advanced exception
+    // in this example, "ff01020304050600ff0a0b0c0d0e0f00" is your operation_id and "090a0b0c0d0e0f00" is your operation_SpanId
     SpanContext spanContext = SpanContext.create("ff01020304050600ff0a0b0c0d0e0f00", "090a0b0c0d0e0f00", TraceFlags.getSampled(), TraceState.getDefault());
     try (Scope ignored = Span.wrap(spanContext).makeCurrent()) {
       log4jLogger.error("This is an exception with custom stack trace from log4j2", new AdvancedException("my exception"));
