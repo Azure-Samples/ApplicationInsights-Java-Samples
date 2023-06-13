@@ -18,6 +18,10 @@ import io.opentelemetry.sdk.trace.SdkTracerProvider;
 import io.opentelemetry.sdk.trace.samplers.Sampler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.message.MapMessage;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrackAdvancedException {
 
@@ -39,7 +43,10 @@ public class TrackAdvancedException {
     // in this example, "ff01020304050600ff0a0b0c0d0e0f00" is your operation_id and "090a0b0c0d0e0f00" is your operation_SpanId
     SpanContext spanContext = SpanContext.create("ff01020304050600ff0a0b0c0d0e0f00", "090a0b0c0d0e0f00", TraceFlags.getSampled(), TraceState.getDefault());
     try (Scope ignored = Span.wrap(spanContext).makeCurrent()) {
-      log4jLogger.error("This is an exception with custom stack trace from log4j2", new AdvancedException("my exception"));
+      Map<String, Object> mapMessage = new HashMap<>();
+      mapMessage.put("key", "trackAdvancedException"); // add a custom dimension
+      mapMessage.put("message", "This is an exception with custom stack trace from log4j2");
+      log4jLogger.error(new MapMessage<>(mapMessage), new AdvancedException("my exception"));
     }
   }
 
