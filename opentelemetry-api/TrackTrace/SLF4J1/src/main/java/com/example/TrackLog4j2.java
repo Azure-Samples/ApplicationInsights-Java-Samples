@@ -74,9 +74,9 @@ public class TrackLog4j2 {
     try (Scope ignore = span.makeCurrent()) {
       MDC.put("MDC key", "MDC value");
       runnable.run();
-      MDC.remove("MDC key");
     } finally {
       span.end();
+      MDC.remove("MDC key");
     }
   }
 }
