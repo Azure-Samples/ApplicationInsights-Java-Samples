@@ -23,11 +23,6 @@
             <artifactId>opentelemetry-api</artifactId>
             <version>1.27.0</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.opentelemetry</groupId>-->
-<!--            <artifactId>opentelemetry-api-logs</artifactId>-->
-<!--            <version>1.26.0-alpha</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-semconv</artifactId>
