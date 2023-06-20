@@ -14,6 +14,7 @@
     <modules>
         <module>Log4j2</module>
         <module>Logback</module>
+        <module>SLF4J1</module>
     </modules>
 
     <properties>
