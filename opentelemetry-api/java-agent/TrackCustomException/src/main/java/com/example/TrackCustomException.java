@@ -1,6 +1,6 @@
 package com.example;
 
-import io.opentelemetry.api.logs.GlobalLoggerProvider;
+import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanContext;
 import io.opentelemetry.api.trace.TraceFlags;
@@ -28,12 +28,12 @@ public class TrackCustomException {
     try (Scope ignored = Span.wrap(spanContext).makeCurrent()) {
       StringWriter sw = new StringWriter();
       new Exception().printStackTrace(new PrintWriter(sw, true));
-      GlobalLoggerProvider.get().get("my logger").logRecordBuilder()
+
+      GlobalOpenTelemetry.get().getLogsBridge().get("my logger").logRecordBuilder()
           .setAttribute(SemanticAttributes.EXCEPTION_TYPE, "my exception type")
           .setAttribute(SemanticAttributes.EXCEPTION_MESSAGE, "This is an custom exception with custom exception type")
           .setAttribute(SemanticAttributes.EXCEPTION_STACKTRACE, sw.toString())
           .emit();
-      System.out.println("globalloggerprovider:: " + GlobalLoggerProvider.get());
     }
   }
 }
