@@ -1,6 +1,7 @@
 package com.example;
 
 import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.logs.Severity;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanContext;
 import io.opentelemetry.api.trace.TraceFlags;
@@ -15,7 +16,7 @@ public class TrackCustomException {
 
   public static void main(String[] args) throws InterruptedException {
     trackCustomException();
-    Thread.sleep(50000); // wait at least 5 seconds to give batch span processor time to export
+    Thread.sleep(8000); // wait at least 5 seconds to give batch span processor time to export
   }
 
   private static void trackCustomException() {
@@ -30,6 +31,7 @@ public class TrackCustomException {
       new Exception().printStackTrace(new PrintWriter(sw, true));
 
       GlobalOpenTelemetry.get().getLogsBridge().get("my logger").logRecordBuilder()
+          .setSeverity(Severity.INFO)
           .setAttribute(SemanticAttributes.EXCEPTION_TYPE, "my exception type")
           .setAttribute(SemanticAttributes.EXCEPTION_MESSAGE, "This is an custom exception with custom exception type")
           .setAttribute(SemanticAttributes.EXCEPTION_STACKTRACE, sw.toString())
