@@ -36,7 +36,7 @@
         <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-semconv</artifactId>
-            <version>1.23.0-alpha</version>
+            <version>1.27.0-alpha</version>
         </dependency>
         <dependency>
             <groupId>com.azure</groupId>
