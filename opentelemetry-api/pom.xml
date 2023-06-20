@@ -12,10 +12,8 @@
     <artifactId>opentelemetry-api</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>TrackException</module>
-        <module>TrackTrace</module>
-        <module>TrackDependency</module>
-        <module>TrackAdvancedException</module>
+        <module>exporter</module>
+        <module>java-agent</module>
     </modules>
 
     <properties>
