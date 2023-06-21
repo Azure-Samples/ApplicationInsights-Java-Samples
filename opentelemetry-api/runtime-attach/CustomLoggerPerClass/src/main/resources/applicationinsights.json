@@ -1,0 +1,10 @@
+{
+  "connectionString": "<YOUR CONNECTION STRING>",
+  "role": {
+    "name": "my cloud role name",
+    "instance": "my cloud role instance"
+  },
+  "selfDiagnostics": {
+    "level": "DEBUG"
+  }
+}
