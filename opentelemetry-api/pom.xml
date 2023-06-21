@@ -15,7 +15,6 @@
         <module>exporter</module>
         <module>java-agent</module>
         <module>runtime-attach</module>
-        <module>runtime-attach/CustomLoggerPerClass</module>
     </modules>
 
     <properties>
