@@ -16,6 +16,7 @@
         <module>TrackTrace</module>
         <module>TrackDependency</module>
         <module>TrackAdvancedException</module>
+        <module>TrackMetric</module>
     </modules>
 
     <properties>
