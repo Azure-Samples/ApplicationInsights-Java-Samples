@@ -16,11 +16,11 @@ public class TrackMetric {
   private static final Meter meter = initMeter();
 
   public static void main(String[] args) throws InterruptedException {
-    track();
+    trackDoubleHistogram();
     Thread.sleep(6000); // wait at least 5 seconds to give batch span processor time to export
   }
 
-  private static void track() {
+  private static void trackDoubleHistogram() {
     DoubleHistogram histogram =
         ((ExtendedDoubleHistogramBuilder) meter.histogramBuilder("histogram" + UUID.randomUUID()))
             .setAdvice(advice -> advice.setExplicitBucketBoundaries(Arrays.asList(10.0, 20.0, 30.0)))
