@@ -8,7 +8,6 @@ import io.opentelemetry.sdk.metrics.export.MetricExporter;
 import io.opentelemetry.sdk.metrics.export.PeriodicMetricReader;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.util.Arrays;
 import java.util.UUID;
 
