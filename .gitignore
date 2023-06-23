@@ -2,3 +2,5 @@ target/
 build/
 .gradle/
 .idea/
+opentelemetry-api/java-agent/TrackCustomException/src/main/resources/applicationinsights.log
+
