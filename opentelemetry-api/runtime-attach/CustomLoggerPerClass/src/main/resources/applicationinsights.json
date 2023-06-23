@@ -1,5 +1,5 @@
 {
-  "connectionString": "<YOUR CONNECTION STRING>",
+  "connectionString": "<your connection string>",
   "role": {
     "name": "my cloud role name",
     "instance": "my cloud role instance"
