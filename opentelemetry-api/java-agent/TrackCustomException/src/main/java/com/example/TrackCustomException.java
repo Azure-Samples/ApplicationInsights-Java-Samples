@@ -1,6 +1,7 @@
 package com.example;
 
 import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.api.logs.Severity;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanContext;
@@ -11,6 +12,7 @@ import io.opentelemetry.semconv.trace.attributes.SemanticAttributes;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.time.Instant;
 
 public class TrackCustomException {
 
@@ -35,6 +37,8 @@ public class TrackCustomException {
           .setAttribute(SemanticAttributes.EXCEPTION_TYPE, "my exception type")
           .setAttribute(SemanticAttributes.EXCEPTION_MESSAGE, "This is an custom exception with custom exception type")
           .setAttribute(SemanticAttributes.EXCEPTION_STACKTRACE, sw.toString())
+          .setAttribute(AttributeKey.stringKey("my custom key"), "my custom value") // set your own custom dimensions
+          .setTimestamp(Instant.now()) // set your own timestamp
           .emit();
     }
   }
