@@ -3,7 +3,6 @@ package com.example;
 import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
 import com.azure.monitor.opentelemetry.exporter.implementation.ResourceAttributes;
 import io.opentelemetry.api.GlobalOpenTelemetry;
-import io.opentelemetry.api.logs.GlobalLoggerProvider;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanContext;
 import io.opentelemetry.api.trace.TraceFlags;
@@ -69,6 +68,5 @@ public class TrackAdvancedException {
                     .build())
             .build();
     GlobalOpenTelemetry.set(sdk);
-    GlobalLoggerProvider.set(sdk.getSdkLoggerProvider());
   }
 }
