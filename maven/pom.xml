@@ -17,6 +17,7 @@
 
   <properties>
     <java.version>1.8</java.version>
+    <applicationinsights.agent.version>3.4.6</applicationinsights.agent.version>
   </properties>
 
   <dependencies>
@@ -25,6 +26,18 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <!-- this dependency management block is used to tell dependabot that we want to subscribe
+             to version updates on ${applicationinsights.agent.version} -->
+        <groupId>com.microsoft.azure</groupId>
+        <artifactId>applicationinsights-agent</artifactId>
+        <version>${applicationinsights.agent.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
     <plugins>
@@ -52,7 +65,7 @@
             <artifactItem>
               <groupId>com.microsoft.azure</groupId>
               <artifactId>applicationinsights-agent</artifactId>
-              <version>3.4.6</version>
+              <version>${applicationinsights.agent.version}</version>
               <outputDirectory>${project.build.directory}/agent</outputDirectory>
               <destFileName>applicationinsights-agent.jar</destFileName>
             </artifactItem>
