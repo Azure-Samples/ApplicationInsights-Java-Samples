@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 public class TrackException {
 
-  private static final String CONNECTION_STRING = "InstrumentationKey=4893b21d-7994-4743-85f2-e4d8c1e58bc6;IngestionEndpoint=https://westus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://westus.livediagnostics.monitor.azure.com/";
+  private static final String CONNECTION_STRING = "<YOUR_CONNECTION_STRING>";
   private static final Logger log4jLogger = LogManager.getLogger("log4j-logger");
   protected static final Tracer tracer = initTracer();
 
