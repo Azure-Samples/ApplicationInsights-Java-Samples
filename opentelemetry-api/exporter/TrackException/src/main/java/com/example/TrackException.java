@@ -1,7 +1,6 @@
 package com.example;
 
 import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
-import io.opentelemetry.api.logs.GlobalLoggerProvider;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.api.trace.Tracer;
@@ -72,7 +71,7 @@ public class TrackException {
     SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
         .addLogRecordProcessor(BatchLogRecordProcessor.builder(logRecordExporter).build())
         .build();
-    GlobalLoggerProvider.set(sdkLoggerProvider);
+//    GlobalLoggerProvider.set(sdkLoggerProvider);
 
     return sdk.getTracer("my tracer name");
   }
