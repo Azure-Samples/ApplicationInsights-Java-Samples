@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 public class TrackException {
 
-  private static final String CONNECTION_STRING = "<Your Connection String>";
+  private static final String CONNECTION_STRING = "InstrumentationKey=4893b21d-7994-4743-85f2-e4d8c1e58bc6;IngestionEndpoint=https://westus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://westus.livediagnostics.monitor.azure.com/";
   private static final Logger log4jLogger = LogManager.getLogger("log4j-logger");
   protected static final Tracer tracer = initTracer();
 
@@ -61,17 +61,17 @@ public class TrackException {
         .addSpanProcessor(BatchSpanProcessor.builder(spanExporter).build())
         .build();
 
+      // In this example Log4j2 log events will be sent to both the console appender and
+      // the `OpenTelemetryAppender`, which will drop the logs until `GlobalLoggerProvider.set(..)` is
+      // called. Once initialized, logs will be emitted to a `Logger` obtained from the `SdkLoggerProvider`.
+      SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
+          .addLogRecordProcessor(BatchLogRecordProcessor.builder(logRecordExporter).build())
+          .build();
+
     OpenTelemetrySdk sdk = OpenTelemetrySdk.builder()
         .setTracerProvider(tracerProvider)
-        .buildAndRegisterGlobal();
-
-    // In this example Log4j2 log events will be sent to both the console appender and
-    // the `OpenTelemetryAppender`, which will drop the logs until `GlobalLoggerProvider.set(..)` is
-    // called. Once initialized, logs will be emitted to a `Logger` obtained from the `SdkLoggerProvider`.
-    SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
-        .addLogRecordProcessor(BatchLogRecordProcessor.builder(logRecordExporter).build())
+        .setLoggerProvider(sdkLoggerProvider)
         .build();
-//    GlobalLoggerProvider.set(sdkLoggerProvider);
 
     return sdk.getTracer("my tracer name");
   }
