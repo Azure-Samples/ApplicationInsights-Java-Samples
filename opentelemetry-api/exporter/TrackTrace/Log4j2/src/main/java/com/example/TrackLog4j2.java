@@ -3,7 +3,6 @@ package com.example;
 import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
 import com.azure.monitor.opentelemetry.exporter.implementation.ResourceAttributes;
 import io.opentelemetry.api.GlobalOpenTelemetry;
-import io.opentelemetry.api.logs.GlobalLoggerProvider;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.context.Scope;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
@@ -91,7 +90,6 @@ public class TrackLog4j2 {
                     .build())
             .build();
     GlobalOpenTelemetry.set(sdk);
-    GlobalLoggerProvider.set(sdk.getSdkLoggerProvider());
   }
 
   static void runWithASpan(Runnable runnable, boolean withSpan) {
