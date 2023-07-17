@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 public class TrackException {
 
-  private static final String CONNECTION_STRING = "<YOUR_CONNECTION_STRING>";
+  private static final String CONNECTION_STRING = "<Your Connection String>";
   private static final Logger log4jLogger = LogManager.getLogger("log4j-logger");
   protected static final Tracer tracer = initTracer();
 
