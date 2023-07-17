@@ -31,10 +31,6 @@
             <artifactId>opentelemetry-exporter-otlp</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.opentelemetry</groupId>
-            <artifactId>opentelemetry-semconv</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.azure</groupId>
             <artifactId>azure-monitor-opentelemetry-exporter</artifactId>
         </dependency>
