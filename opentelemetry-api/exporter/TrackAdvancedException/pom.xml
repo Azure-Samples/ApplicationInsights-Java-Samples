@@ -21,33 +21,22 @@
         <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-api</artifactId>
-            <version>1.23.0</version>
         </dependency>
         <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-sdk</artifactId>
-            <version>1.23.0</version>
         </dependency>
         <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-exporter-otlp</artifactId>
-            <version>1.23.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.opentelemetry</groupId>
-            <artifactId>opentelemetry-semconv</artifactId>
-            <version>1.23.0-alpha</version>
         </dependency>
         <dependency>
             <groupId>com.azure</groupId>
             <artifactId>azure-monitor-opentelemetry-exporter</artifactId>
-            <version>1.0.0-beta.8</version>
         </dependency>
         <dependency>
             <groupId>io.opentelemetry.instrumentation</groupId>
             <artifactId>opentelemetry-log4j-appender-2.17</artifactId>
-            <version>1.27.0-alpha</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -62,7 +51,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.4.7</version>
+            <version>1.4.8</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>

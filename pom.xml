@@ -18,4 +18,57 @@
       <module>opentelemetry-api</module>
   </modules>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-api</artifactId>
+        <version>1.28.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-sdk</artifactId>
+        <version>1.28.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-exporter-otlp</artifactId>
+        <version>1.28.0</version>
+      </dependency>
+      <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-semconv</artifactId>
+        <version>1.28.0-alpha</version>
+      </dependency>
+      <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-extension-incubator</artifactId>
+        <version>1.28.0-alpha</version>
+        <scope>compile</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-sdk-metrics</artifactId>
+        <version>1.28.0</version>
+        <scope>compile</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.azure</groupId>
+        <artifactId>azure-monitor-opentelemetry-exporter</artifactId>
+        <version>1.0.0-beta.9</version>
+      </dependency>
+      <dependency>
+        <groupId>io.opentelemetry.instrumentation</groupId>
+        <artifactId>opentelemetry-log4j-appender-2.17</artifactId>
+        <version>1.28.0-alpha</version>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.opentelemetry.instrumentation</groupId>
+        <artifactId>opentelemetry-logback-appender-1.0</artifactId>
+        <version>1.28.0-alpha</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
 </project>

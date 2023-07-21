@@ -1,6 +1,6 @@
 plugins {
   java
-  id("org.springframework.boot") version "2.7.13"
+  id("org.springframework.boot") version "2.7.14"
   id("io.spring.dependency-management") version "1.1.2"
 }
 
@@ -18,7 +18,7 @@ val agent: Configuration by configurations.creating
 dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
-  agent("com.microsoft.azure:applicationinsights-agent:3.4.14")
+  agent("com.microsoft.azure:applicationinsights-agent:3.4.15")
 }
 
 val copyAgent = tasks.register<Copy>("copyAgent") {

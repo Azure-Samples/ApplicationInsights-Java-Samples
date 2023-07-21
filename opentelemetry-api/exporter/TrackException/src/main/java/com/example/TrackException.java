@@ -1,7 +1,6 @@
 package com.example;
 
 import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
-import io.opentelemetry.api.logs.GlobalLoggerProvider;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.api.trace.Tracer;
@@ -62,17 +61,17 @@ public class TrackException {
         .addSpanProcessor(BatchSpanProcessor.builder(spanExporter).build())
         .build();
 
+      // In this example Log4j2 log events will be sent to both the console appender and
+      // the `OpenTelemetryAppender`, which will drop the logs until `GlobalLoggerProvider.set(..)` is
+      // called. Once initialized, logs will be emitted to a `Logger` obtained from the `SdkLoggerProvider`.
+      SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
+          .addLogRecordProcessor(BatchLogRecordProcessor.builder(logRecordExporter).build())
+          .build();
+
     OpenTelemetrySdk sdk = OpenTelemetrySdk.builder()
         .setTracerProvider(tracerProvider)
-        .buildAndRegisterGlobal();
-
-    // In this example Log4j2 log events will be sent to both the console appender and
-    // the `OpenTelemetryAppender`, which will drop the logs until `GlobalLoggerProvider.set(..)` is
-    // called. Once initialized, logs will be emitted to a `Logger` obtained from the `SdkLoggerProvider`.
-    SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
-        .addLogRecordProcessor(BatchLogRecordProcessor.builder(logRecordExporter).build())
+        .setLoggerProvider(sdkLoggerProvider)
         .build();
-    GlobalLoggerProvider.set(sdkLoggerProvider);
 
     return sdk.getTracer("my tracer name");
   }
