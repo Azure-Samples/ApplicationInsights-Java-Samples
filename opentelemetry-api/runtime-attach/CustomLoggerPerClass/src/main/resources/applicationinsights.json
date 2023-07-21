@@ -6,5 +6,10 @@
   },
   "selfDiagnostics": {
     "level": "DEBUG"
+  },
+  "instrumentation": {
+    "logging": {
+      "enabled": "false"
+    }
   }
 }
