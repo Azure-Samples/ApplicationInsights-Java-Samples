@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>TrackCustomException</module>
+        <module>TrackCustomMetrics</module>
     </modules>
 
     <properties>

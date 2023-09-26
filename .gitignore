@@ -4,3 +4,5 @@ build/
 .idea/
 opentelemetry-api/java-agent/TrackCustomException/src/main/resources/applicationinsights.log
 opentelemetry-api/runtime-attach/CustomLoggerPerClass/src/main/resources/applicationinsights.log
+opentelemetry-api/java-agent/TrackCustomMetrics/lib/applicationinsights.log
+opentelemetry-api/java-agent/TrackCustomMetrics/output.txt
