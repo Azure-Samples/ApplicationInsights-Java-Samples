@@ -25,8 +25,8 @@ public class TrackCustomMetrics {
             DoubleHistogram histogram =
                 GlobalOpenTelemetry
                     .get()
-                    .getMeter("heya-TrackCustomMetrics-" + i+1)
-                    .histogramBuilder("heya-histogram-" + UUID.randomUUID()).build();
+                    .getMeter("heya-TrackCustomMetrics-" + i)
+                    .histogramBuilder("heya-histogram-" + i).build();
             histogram.record(5.0);
             histogram.record(15.0);
             histogram.record(20.0);
