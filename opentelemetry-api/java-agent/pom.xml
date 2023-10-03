@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>TrackCustomException</module>
+      <module>ExtractPidFromLogMessage</module>
+      <module>ExtractPidFromLogMessage/LogRecordExporterCustomizer</module>
     </modules>
 
     <properties>
