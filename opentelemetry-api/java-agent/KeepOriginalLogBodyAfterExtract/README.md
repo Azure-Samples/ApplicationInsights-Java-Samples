@@ -17,10 +17,7 @@ Verify there is a log entry that starts with something as follows:
 After it's finished running, go to Application Insights portal logs blade, query the following:
 
   ```kusto
-  exceptions
-  | where type == 'my exception type'
-  | where outerMessage == 'This is an custom exception with custom exception type'
+  traces
+  | where timestamp > ago(10m)
+  | where message contains "PID"
   ```
-
-- Go to `Transaction search` -> `End-to-end transaction details`, the advanced custom exception will look like this:
-  ![image info](images/custom-exception-end-to-end-detail-view.png)
