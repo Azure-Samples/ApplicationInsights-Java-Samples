@@ -1,5 +1,4 @@
 {
-  "connectionString": "InstrumentationKey=d37669be-d5cc-4601-aafd-6d4790cef8fa;IngestionEndpoint=https://westus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://westus.livediagnostics.monitor.azure.com/",
   "preview": {
     "processors": [
       {

@@ -12,7 +12,7 @@
   </parent>
 
   <groupId>com.example</groupId>
-  <artifactId>ExtractPidFromLogMessage</artifactId>
+  <artifactId>KeepOriginalLogBodyAfterExtract</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>

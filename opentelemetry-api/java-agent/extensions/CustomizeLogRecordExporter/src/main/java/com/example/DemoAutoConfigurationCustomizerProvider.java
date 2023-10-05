@@ -28,11 +28,9 @@ public class DemoAutoConfigurationCustomizerProvider
     @Override
     public void customize(AutoConfigurationCustomizer autoConfiguration) {
 
-        autoConfiguration.addLoggerProviderCustomizer(
-            (logProvider, config) ->
-                logProvider.addLogRecordProcessor(
-                    SimpleLogRecordProcessor.create(new DemoLogRecordExporter())))
-            .addPropertiesSupplier(this::getDefaultProperties);
+        autoConfiguration.addLogRecordExporterCustomizer((logRecordExporter, configProperties) -> {
+            return new DemoLogRecordExporter(logRecordExporter);
+        });
     }
 
     private Map<String, String> getDefaultProperties() {

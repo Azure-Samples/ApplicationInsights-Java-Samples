@@ -20,8 +20,7 @@ public class Controller {
 
     @GetMapping("/hello")
     public String hello() {
-        String message = new StringMapMessage().with("message", "Hello, this is local testing").with("PID", "987").asString();
         logger.info("Hello, this is testing PID 9876");
-        return message;
+        return "Hello!";
     }
 }
