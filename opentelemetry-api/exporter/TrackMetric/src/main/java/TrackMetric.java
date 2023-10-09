@@ -1,4 +1,5 @@
 import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
+import com.azure.monitor.opentelemetry.exporter.implementation.SemanticAttributes;
 import io.opentelemetry.api.metrics.DoubleHistogram;
 import io.opentelemetry.api.metrics.Meter;
 import io.opentelemetry.extension.incubator.metrics.ExtendedDoubleHistogramBuilder;
@@ -8,8 +9,9 @@ import io.opentelemetry.sdk.metrics.export.MetricExporter;
 import io.opentelemetry.sdk.metrics.export.PeriodicMetricReader;
 
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.UUID;
+
+import static java.util.Arrays.asList;
 
 public class TrackMetric {
   private static final String CONNECTION_STRING = "<Your Connection String>";
@@ -23,7 +25,10 @@ public class TrackMetric {
   private static void trackDoubleHistogram() {
     DoubleHistogram histogram =
         ((ExtendedDoubleHistogramBuilder) meter.histogramBuilder("histogram" + UUID.randomUUID()))
-            .setAdvice(advice -> advice.setExplicitBucketBoundaries(Arrays.asList(10.0, 20.0, 30.0)))
+            .setAttributesAdvice(asList(
+              SemanticAttributes.HTTP_ROUTE,
+              SemanticAttributes.HTTP_METHOD,
+              SemanticAttributes.HTTP_STATUS_CODE))
             .build();
     histogram.record(5.0);
     histogram.record(15.0);
