@@ -32,13 +32,4 @@ public class DemoAutoConfigurationCustomizerProvider
             return new DemoLogRecordExporter(logRecordExporter);
         });
     }
-
-    private Map<String, String> getDefaultProperties() {
-        Map<String, String> properties = new HashMap<>();
-        properties.put("otel.exporter.otlp.endpoint", "http://backend:8080");
-        properties.put("otel.exporter.otlp.insecure", "true");
-        properties.put("otel.config.max.attrs", "16");
-        properties.put("otel.traces.sampler", "demo");
-        return properties;
-    }
 }
