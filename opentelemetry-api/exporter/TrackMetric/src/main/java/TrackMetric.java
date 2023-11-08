@@ -1,21 +1,20 @@
 import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
 import com.azure.monitor.opentelemetry.exporter.implementation.SemanticAttributes;
+import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.metrics.DoubleHistogram;
 import io.opentelemetry.api.metrics.Meter;
 import io.opentelemetry.extension.incubator.metrics.ExtendedDoubleHistogramBuilder;
-import io.opentelemetry.sdk.OpenTelemetrySdk;
-import io.opentelemetry.sdk.metrics.SdkMeterProvider;
-import io.opentelemetry.sdk.metrics.export.MetricExporter;
-import io.opentelemetry.sdk.metrics.export.PeriodicMetricReader;
+import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
+import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdkBuilder;
 
-import java.time.Duration;
 import java.util.UUID;
 
 import static java.util.Arrays.asList;
 
 public class TrackMetric {
     private static final String CONNECTION_STRING = "<Your Connection String>";
-    private static final Meter meter = initMeter();
+    private static final OpenTelemetry openTelemetry = initOpenTelemetry();
+    private static final Meter meter = openTelemetry.getMeter("my meter");
 
     public static void main(String[] args) throws InterruptedException {
         trackDoubleHistogram();
@@ -35,24 +34,11 @@ public class TrackMetric {
         histogram.record(20.0);
     }
 
-    private static Meter initMeter() {
-        // Create Azure Monitor exporter and configure OpenTelemetry meter to use this exporter
-        // This should be done just once when application starts up
-        MetricExporter exporter = new AzureMonitorExporterBuilder()
+    private static OpenTelemetry initOpenTelemetry() {
+        AutoConfiguredOpenTelemetrySdkBuilder sdkBuilder = AutoConfiguredOpenTelemetrySdk.builder();
+        new AzureMonitorExporterBuilder()
             .connectionString(CONNECTION_STRING)
-            .buildMetricExporter();
-        PeriodicMetricReader periodicMetricReader = PeriodicMetricReader
-            .builder(exporter)
-            .setInterval(Duration.ofSeconds(1))
-            .build();
-        SdkMeterProvider meterProvider = SdkMeterProvider
-            .builder()
-            .registerMetricReader(periodicMetricReader)
-            .build();
-        OpenTelemetrySdk sdk = OpenTelemetrySdk
-            .builder()
-            .setMeterProvider(meterProvider)
-            .buildAndRegisterGlobal();
-        return sdk.getMeter("my meter");
+            .build(sdkBuilder);
+        return sdkBuilder.build().getOpenTelemetrySdk();
     }
 }

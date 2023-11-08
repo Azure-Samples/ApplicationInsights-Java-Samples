@@ -3,15 +3,13 @@ package com.example;
 import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
 import com.azure.monitor.opentelemetry.exporter.implementation.ResourceAttributes;
 import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.context.Scope;
-import io.opentelemetry.sdk.OpenTelemetrySdk;
-import io.opentelemetry.sdk.logs.SdkLoggerProvider;
-import io.opentelemetry.sdk.logs.export.BatchLogRecordProcessor;
-import io.opentelemetry.sdk.logs.export.LogRecordExporter;
+import io.opentelemetry.instrumentation.log4j.appender.v2_17.OpenTelemetryAppender;
+import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
+import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdkBuilder;
 import io.opentelemetry.sdk.resources.Resource;
-import io.opentelemetry.sdk.trace.SdkTracerProvider;
-import io.opentelemetry.sdk.trace.samplers.Sampler;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
@@ -21,7 +19,9 @@ public class TrackLog4j2 {
     private static final org.slf4j.Logger slf4j_1_Logger = LoggerFactory.getLogger(TrackLog4j2.class);
 
     public static void main(String[] args) throws InterruptedException {
-        initOpenTelemetry();
+        OpenTelemetry openTelemetry = initOpenTelemetry();
+
+        OpenTelemetryAppender.install(openTelemetry);
 
         // track a trace using log4j2 and slf4j_1 logger
         trackWithSlf4j_1();
@@ -42,25 +42,17 @@ public class TrackLog4j2 {
     /**
      * initialize OpenTelemetry using Azure Monitor OpenTelemetry Exporter
      */
-    private static void initOpenTelemetry() {
-        LogRecordExporter logRecordExporter = new AzureMonitorExporterBuilder()
+    private static OpenTelemetry initOpenTelemetry() {
+        AutoConfiguredOpenTelemetrySdkBuilder sdkBuilder = AutoConfiguredOpenTelemetrySdk.builder()
+            .addResourceCustomizer((resource, configProperties) ->
+                resource.merge(Resource.getDefault().toBuilder()
+                    .put(ResourceAttributes.SERVICE_NAME, "my cloud role name")
+                    .put(ResourceAttributes.SERVICE_INSTANCE_ID, "my cloud instance id")
+                    .build()));
+        new AzureMonitorExporterBuilder()
             .connectionString(CONNECTION_STRING)
-            .buildLogRecordExporter();
-        OpenTelemetrySdk sdk =
-            OpenTelemetrySdk.builder()
-                .setTracerProvider(SdkTracerProvider.builder().setSampler(Sampler.alwaysOn()).build())
-                .setLoggerProvider(
-                    SdkLoggerProvider.builder()
-                        .setResource(
-                            Resource.getDefault().toBuilder()
-                                .put(ResourceAttributes.SERVICE_NAME, "my cloud role name")
-                                .put(ResourceAttributes.SERVICE_INSTANCE_ID, "my cloud role instance")
-                                .build())
-                        .addLogRecordProcessor(
-                            BatchLogRecordProcessor.builder(logRecordExporter).build())
-                        .build())
-                .build();
-        GlobalOpenTelemetry.set(sdk);
+            .build(sdkBuilder);
+        return sdkBuilder.build().getOpenTelemetrySdk();
     }
 
     static void runWithASpan(Runnable runnable, boolean withSpan) {

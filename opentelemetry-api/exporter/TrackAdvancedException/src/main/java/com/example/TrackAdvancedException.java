@@ -3,12 +3,16 @@ package com.example;
 import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
 import com.azure.monitor.opentelemetry.exporter.implementation.ResourceAttributes;
 import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanContext;
 import io.opentelemetry.api.trace.TraceFlags;
 import io.opentelemetry.api.trace.TraceState;
 import io.opentelemetry.context.Scope;
+import io.opentelemetry.instrumentation.log4j.appender.v2_17.OpenTelemetryAppender;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
+import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
+import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdkBuilder;
 import io.opentelemetry.sdk.logs.SdkLoggerProvider;
 import io.opentelemetry.sdk.logs.export.BatchLogRecordProcessor;
 import io.opentelemetry.sdk.logs.export.LogRecordExporter;
@@ -28,7 +32,9 @@ public class TrackAdvancedException {
     private static final Logger log4jLogger = LogManager.getLogger(TrackAdvancedException.class);
 
     public static void main(String[] args) throws InterruptedException {
-        initOpenTelemetry();
+        OpenTelemetry openTelemetry = initOpenTelemetry();
+
+        OpenTelemetryAppender.install(openTelemetry);
 
         trackAdvancedException();
         Thread.sleep(6000); // wait at least 5 seconds to give batch span processor time to export
@@ -49,24 +55,16 @@ public class TrackAdvancedException {
         }
     }
 
-    private static void initOpenTelemetry() {
-        LogRecordExporter logRecordExporter = new AzureMonitorExporterBuilder()
+    private static OpenTelemetry initOpenTelemetry() {
+        AutoConfiguredOpenTelemetrySdkBuilder sdkBuilder = AutoConfiguredOpenTelemetrySdk.builder()
+            .addResourceCustomizer((resource, configProperties) ->
+                resource.merge(Resource.getDefault().toBuilder()
+                    .put(ResourceAttributes.SERVICE_NAME, "my cloud role name")
+                    .put(ResourceAttributes.SERVICE_INSTANCE_ID, "my cloud instance id")
+                    .build()));
+        new AzureMonitorExporterBuilder()
             .connectionString(CONNECTION_STRING)
-            .buildLogRecordExporter();
-        OpenTelemetrySdk sdk =
-            OpenTelemetrySdk.builder()
-                .setTracerProvider(SdkTracerProvider.builder().setSampler(Sampler.alwaysOn()).build())
-                .setLoggerProvider(
-                    SdkLoggerProvider.builder()
-                        .setResource(
-                            Resource.getDefault().toBuilder()
-                                .put(ResourceAttributes.SERVICE_NAME, "my cloud role name")
-                                .put(ResourceAttributes.SERVICE_INSTANCE_ID, "my cloud instance id")
-                                .build())
-                        .addLogRecordProcessor(
-                            BatchLogRecordProcessor.builder(logRecordExporter).build())
-                        .build())
-                .build();
-        GlobalOpenTelemetry.set(sdk);
+            .build(sdkBuilder);
+        return sdkBuilder.build().getOpenTelemetrySdk();
     }
 }
