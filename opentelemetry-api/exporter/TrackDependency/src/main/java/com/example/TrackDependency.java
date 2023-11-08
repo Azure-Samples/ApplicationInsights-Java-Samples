@@ -14,42 +14,42 @@ import org.slf4j.LoggerFactory;
 
 public class TrackDependency {
 
-  private static final String CONNECTION_STRING = "<Your Connection String>";
-  private static final Logger logger = LoggerFactory.getLogger(TrackDependency.class);
-  private static final Tracer spanTracer = initTracer();
+    private static final String CONNECTION_STRING = "<Your Connection String>";
+    private static final Logger logger = LoggerFactory.getLogger(TrackDependency.class);
+    private static final Tracer spanTracer = initTracer();
 
-  public static void main(String[] args) throws InterruptedException {
-    track();
-    Thread.sleep(8000); // wait at least 5 seconds to give batch span processor time to export
-  }
-
-  private static void track() {
-    Span span = spanTracer.spanBuilder("dependency name").setSpanKind(SpanKind.CLIENT).startSpan();
-    // Make the span the current span
-    try (Scope scope = span.makeCurrent()) {
-      span.setAttribute("http.method", "GET");
-      span.setAttribute("http.url", "https://www.google.com/");
-      logger.info("track a custom dependency");
-    } finally {
-      span.end();
+    public static void main(String[] args) throws InterruptedException {
+        track();
+        Thread.sleep(8000); // wait at least 5 seconds to give batch span processor time to export
     }
-  }
 
-  private static Tracer initTracer() {
-    // Create Azure Monitor exporter and configure OpenTelemetry tracer to use this exporter
-    // This should be done just once when application starts up
-    SpanExporter exporter = new AzureMonitorExporterBuilder()
-        .connectionString(CONNECTION_STRING)
-        .buildTraceExporter();
+    private static void track() {
+        Span span = spanTracer.spanBuilder("dependency name").setSpanKind(SpanKind.CLIENT).startSpan();
+        // Make the span the current span
+        try (Scope scope = span.makeCurrent()) {
+            span.setAttribute("http.method", "GET");
+            span.setAttribute("http.url", "https://www.google.com/");
+            logger.info("track a custom dependency");
+        } finally {
+            span.end();
+        }
+    }
 
-    SdkTracerProvider tracerProvider = SdkTracerProvider.builder()
-        .addSpanProcessor(BatchSpanProcessor.builder(exporter).build())
-        .build();
+    private static Tracer initTracer() {
+        // Create Azure Monitor exporter and configure OpenTelemetry tracer to use this exporter
+        // This should be done just once when application starts up
+        SpanExporter exporter = new AzureMonitorExporterBuilder()
+            .connectionString(CONNECTION_STRING)
+            .buildTraceExporter();
 
-    OpenTelemetrySdk sdk = OpenTelemetrySdk.builder()
-        .setTracerProvider(tracerProvider)
-        .buildAndRegisterGlobal();
+        SdkTracerProvider tracerProvider = SdkTracerProvider.builder()
+            .addSpanProcessor(BatchSpanProcessor.builder(exporter).build())
+            .build();
 
-    return sdk.getTracer("my tracer name");
-  }
+        OpenTelemetrySdk sdk = OpenTelemetrySdk.builder()
+            .setTracerProvider(tracerProvider)
+            .buildAndRegisterGlobal();
+
+        return sdk.getTracer("my tracer name");
+    }
 }

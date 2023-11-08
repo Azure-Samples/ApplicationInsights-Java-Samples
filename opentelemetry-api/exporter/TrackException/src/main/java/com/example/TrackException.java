@@ -17,62 +17,62 @@ import org.apache.logging.log4j.Logger;
 
 public class TrackException {
 
-  private static final String CONNECTION_STRING = "<Your Connection String>";
-  private static final Logger log4jLogger = LogManager.getLogger("log4j-logger");
-  protected static final Tracer tracer = initTracer();
+    private static final String CONNECTION_STRING = "<Your Connection String>";
+    private static final Logger log4jLogger = LogManager.getLogger("log4j-logger");
+    protected static final Tracer tracer = initTracer();
 
-  public static void main(String[] args) throws InterruptedException {
-    track();
-    Thread.sleep(6000); // wait at least 5 seconds to give batch span processor time to export
+    public static void main(String[] args) throws InterruptedException {
+        track();
+        Thread.sleep(6000); // wait at least 5 seconds to give batch span processor time to export
 
-    trackWithLog4j2();
-    Thread.sleep(6000); // wait at least 5 seconds to give batch span processor time to export
-  }
-
-  private static void track() {
-    Span span = tracer.spanBuilder("TrackException").startSpan();
-    // put the span into the current Context
-    try (Scope scope = span.makeCurrent()) {
-      throw new RuntimeException("intentionally throws an exception");
-    } catch (Throwable throwable) {
-      span.setStatus(StatusCode.ERROR, "Something bad happened!");
-      span.recordException(throwable);
-    } finally {
-      span.end(); // Cannot set a span after this call
+        trackWithLog4j2();
+        Thread.sleep(6000); // wait at least 5 seconds to give batch span processor time to export
     }
-  }
 
-  static void trackWithLog4j2() {
-    log4jLogger.error("This is an exception from log4j2", new Exception("my exception"));
-  }
+    private static void track() {
+        Span span = tracer.spanBuilder("TrackException").startSpan();
+        // put the span into the current Context
+        try (Scope scope = span.makeCurrent()) {
+            throw new RuntimeException("intentionally throws an exception");
+        } catch (Throwable throwable) {
+            span.setStatus(StatusCode.ERROR, "Something bad happened!");
+            span.recordException(throwable);
+        } finally {
+            span.end(); // Cannot set a span after this call
+        }
+    }
 
-  private static Tracer initTracer() {
-    // Create Azure Monitor spanExporter and configure OpenTelemetry tracer to use this spanExporter
-    // This should be done just once when application starts up
-    SpanExporter spanExporter = new AzureMonitorExporterBuilder()
-        .connectionString(CONNECTION_STRING)
-        .buildTraceExporter();
+    static void trackWithLog4j2() {
+        log4jLogger.error("This is an exception from log4j2", new Exception("my exception"));
+    }
 
-    LogRecordExporter logRecordExporter = new AzureMonitorExporterBuilder()
-        .connectionString(CONNECTION_STRING)
-        .buildLogRecordExporter();
+    private static Tracer initTracer() {
+        // Create Azure Monitor spanExporter and configure OpenTelemetry tracer to use this spanExporter
+        // This should be done just once when application starts up
+        SpanExporter spanExporter = new AzureMonitorExporterBuilder()
+            .connectionString(CONNECTION_STRING)
+            .buildTraceExporter();
 
-    SdkTracerProvider tracerProvider = SdkTracerProvider.builder()
-        .addSpanProcessor(BatchSpanProcessor.builder(spanExporter).build())
-        .build();
+        LogRecordExporter logRecordExporter = new AzureMonitorExporterBuilder()
+            .connectionString(CONNECTION_STRING)
+            .buildLogRecordExporter();
 
-      // In this example Log4j2 log events will be sent to both the console appender and
-      // the `OpenTelemetryAppender`, which will drop the logs until `GlobalLoggerProvider.set(..)` is
-      // called. Once initialized, logs will be emitted to a `Logger` obtained from the `SdkLoggerProvider`.
-      SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
-          .addLogRecordProcessor(BatchLogRecordProcessor.builder(logRecordExporter).build())
-          .build();
+        SdkTracerProvider tracerProvider = SdkTracerProvider.builder()
+            .addSpanProcessor(BatchSpanProcessor.builder(spanExporter).build())
+            .build();
 
-    OpenTelemetrySdk sdk = OpenTelemetrySdk.builder()
-        .setTracerProvider(tracerProvider)
-        .setLoggerProvider(sdkLoggerProvider)
-        .build();
+        // In this example Log4j2 log events will be sent to both the console appender and
+        // the `OpenTelemetryAppender`, which will drop the logs until `GlobalLoggerProvider.set(..)` is
+        // called. Once initialized, logs will be emitted to a `Logger` obtained from the `SdkLoggerProvider`.
+        SdkLoggerProvider sdkLoggerProvider = SdkLoggerProvider.builder()
+            .addLogRecordProcessor(BatchLogRecordProcessor.builder(logRecordExporter).build())
+            .build();
 
-    return sdk.getTracer("my tracer name");
-  }
+        OpenTelemetrySdk sdk = OpenTelemetrySdk.builder()
+            .setTracerProvider(tracerProvider)
+            .setLoggerProvider(sdkLoggerProvider)
+            .build();
+
+        return sdk.getTracer("my tracer name");
+    }
 }
