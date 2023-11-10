@@ -51,7 +51,7 @@ public class TrackLog4j2 {
                     .build()));
         new AzureMonitorExporterBuilder()
             .connectionString(CONNECTION_STRING)
-            .build(sdkBuilder);
+            .install(sdkBuilder);
         return sdkBuilder.build().getOpenTelemetrySdk();
     }
 

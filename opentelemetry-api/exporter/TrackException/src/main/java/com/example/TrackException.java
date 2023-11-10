@@ -53,7 +53,7 @@ public class TrackException {
         AutoConfiguredOpenTelemetrySdkBuilder sdkBuilder = AutoConfiguredOpenTelemetrySdk.builder();
         new AzureMonitorExporterBuilder()
             .connectionString(CONNECTION_STRING)
-            .build(sdkBuilder);
+            .install(sdkBuilder);
         return sdkBuilder.build().getOpenTelemetrySdk();
     }
 }

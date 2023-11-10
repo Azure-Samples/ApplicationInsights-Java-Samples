@@ -64,7 +64,7 @@ public class TrackAdvancedException {
                     .build()));
         new AzureMonitorExporterBuilder()
             .connectionString(CONNECTION_STRING)
-            .build(sdkBuilder);
+            .install(sdkBuilder);
         return sdkBuilder.build().getOpenTelemetrySdk();
     }
 }
