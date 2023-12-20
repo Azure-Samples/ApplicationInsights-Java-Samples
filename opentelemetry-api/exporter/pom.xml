@@ -17,6 +17,7 @@
         <module>TrackDependency</module>
         <module>TrackAdvancedException</module>
         <module>TrackMetric</module>
+        <module>Micrometer</module>
     </modules>
 
     <properties>
