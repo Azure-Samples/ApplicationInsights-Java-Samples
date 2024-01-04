@@ -12,7 +12,7 @@
   <artifactId>extensions</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>CustomizeLogRecordExporter</module>
+    <module>CustomSpanExporter</module>
   </modules>
 
   <properties>

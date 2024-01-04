@@ -1,0 +1,32 @@
+{
+  "sampling": {
+    "percentage": 100
+  },
+  "preview": {
+    "captureControllerSpans": true,
+    "processors": [
+      {
+        "type": "attribute",
+        "include": {
+          "matchType": "strict",
+          "attributes": [
+            {
+              "key": "myCustomAttributeKey",
+              "value": "myCustomAttributeValue"
+            }
+          ]
+        },
+        "actions": [
+          {
+            "action": "insert",
+            "key": "controlledError",
+            "value": true
+          }
+        ]
+      }
+    ]
+  },
+  "selfDiagnostics": {
+    "level": "DEBUG"
+  }
+}
