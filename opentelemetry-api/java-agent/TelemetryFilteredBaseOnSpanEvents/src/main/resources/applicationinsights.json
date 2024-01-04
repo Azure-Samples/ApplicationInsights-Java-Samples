@@ -3,7 +3,6 @@
     "percentage": 100
   },
   "preview": {
-    "captureControllerSpans": true,
     "processors": [
       {
         "type": "attribute",
@@ -12,7 +11,8 @@
           "attributes": [
             {
               "key": "myCustomAttributeKey",
-              "value": "myCustomAttributeValue"
+              "value": "myCustomAttributeValue",
+              "type": "string"
             }
           ]
         },
