@@ -29,19 +29,14 @@ public class DemoSpanExporter implements SpanExporter {
             List<EventData> events = spanData.getEvents();
             if (events != null && !events.isEmpty()) {
                 for (EventData eventData : events) {
-                    System.out.println("###### eventName= " + eventData.getName());
                     if (eventData.getName().trim().contains("Status code 404")) {
-                        System.out.println("###### found event with name= " + eventData.getName());
                         Attributes attributes = Attributes.builder()
                                 .putAll(spanData.getAttributes())
                                 .put(MY_CUSTOM_ATTRIBUTE_KEY_2, MY_CUSTOM_ATTRIBUTE_VALUE_2)
                                 .build();
                         SpanData customSpanData = new DemoSpanData(spanData, attributes);
-                        customSpanData.getAttributes().forEach((key, value) -> System.out.println("###### key= " + key + ", value= " + value));
                         copiedList.add(customSpanData);
-                        System.out.println("###### added customSpanData with name= " + customSpanData.getName());
                     } else {
-                        System.out.println("###### adding spanData with name= " + spanData.getName());
                         copiedList.add(spanData);
                     }
                 }

@@ -8,11 +8,11 @@ And then use telemetry processor to filter telemetry based on the new custom dim
 To build the extension artifact, from this directory:
 
 `cd ../extensions/CustomSpanExporter`
-`../../../mvnw package`
+`../../../../mvnw package`
 
 To run the application with the extension and Java agent, from this directory:
 
-`cd ../TelemetryFilteredBaseOnSpanEvents`
+`cd ../../TelemetryFilteredBaseOnSpanEvents`
 
 ```
 ../../../mvnw package

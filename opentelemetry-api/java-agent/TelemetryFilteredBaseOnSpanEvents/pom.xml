@@ -49,6 +49,13 @@
       <artifactId>opentelemetry-javaagent-extension-api</artifactId>
       <version>1.32.0-alpha</version>
     </dependency>
+    <dependency>
+      <groupId>com.microsoft.azure</groupId>
+      <artifactId>applicationinsights-agent</artifactId>
+      <version>3.5-SNAPSHOT</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/resources/applicationinsights-agent-3.5-SNAPSHOT.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>
@@ -61,30 +68,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.6.0</version>
-        <executions>
-          <execution>
-            <id>copy-agent</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <artifactItems>
-            <artifactItem>
-              <groupId>com.microsoft.azure</groupId>
-              <artifactId>applicationinsights-agent</artifactId>
-              <version>3.4.19</version>
-              <outputDirectory>${project.build.directory}/agent</outputDirectory>
-              <destFileName>applicationinsights-agent.jar</destFileName>
-            </artifactItem>
-          </artifactItems>
-        </configuration>
-      </plugin>
-    <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-resources-plugin</artifactId>
       <version>3.3.1</version>
@@ -101,7 +84,10 @@
         <resources>
           <resource>
             <directory>${project.basedir}/src/main/resources</directory>
-            <include>applicationinsights.json</include>
+            <includes>
+              <include>applicationinsights-agent-3.5-SNAPSHOT.jar</include>
+              <include>applicationinsights.json</include>
+            </includes>
           </resource>
         </resources>
       </configuration>
