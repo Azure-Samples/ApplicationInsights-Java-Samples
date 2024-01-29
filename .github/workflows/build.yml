@@ -27,13 +27,13 @@ jobs:
         run: ./mvnw package
 
       - name: Gradle (Groovy DSL)
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: build
           build-root-directory: gradle-groovy-dsl
 
       - name: Gradle (Kotlin DSL)
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: build
           build-root-directory: gradle-kotlin-dsl
