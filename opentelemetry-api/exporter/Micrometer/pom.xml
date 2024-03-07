@@ -21,7 +21,7 @@
     <dependency>
       <groupId>io.opentelemetry</groupId>
       <artifactId>opentelemetry-api</artifactId>
-      <version>1.33.0</version>
+      <version>1.35.0</version>
     </dependency>
     <dependency>
       <groupId>com.azure</groupId>
@@ -30,22 +30,22 @@
     <dependency>
       <groupId>io.opentelemetry.instrumentation</groupId>
       <artifactId>opentelemetry-micrometer-1.5</artifactId>
-      <version>1.32.0-alpha</version>
+      <version>2.1.0-alpha</version>
     </dependency>
     <dependency>
       <groupId>io.micrometer</groupId>
       <artifactId>micrometer-core</artifactId>
-      <version>1.12.1</version>
+      <version>1.12.3</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
-      <version>1.4.14</version>
+      <version>1.5.3</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.4.14</version>
+      <version>1.5.3</version>
     </dependency>
   </dependencies>
 
