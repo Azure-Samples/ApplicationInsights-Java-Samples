@@ -23,12 +23,16 @@ export APPLICATIONINSIGHTS_SELF_DIAGNOSTICS_LEVEL=debug
 ```
 
 Verify there is a log entry that starts with something as follows:
-  `{"ver":1,"name":"Message","time":`
+  `{"ver":1,"name":"RemoteDependency","time":`
 
 After it's finished running, go to Application Insights portal logs blade, query the following:
 
   ```kusto
-  traces
-  | where timestamp > ago(10m)
-  | where message contains "PID"
+  dependencies
+  | where name == 'mySpan'
   ```
+
+Verify that there are 3 custom dimensions in the result:
+`controlledError`:`true`, // this is added by the java agent telemetry processor
+`myCustomAttributeKey`: `myCustomAttributeValue`, // this is added by the application when creating the span
+`myCustomAttributeKey2`: `myCustomAttributeValue2`. // this is added by the CustomSpanExporter extension

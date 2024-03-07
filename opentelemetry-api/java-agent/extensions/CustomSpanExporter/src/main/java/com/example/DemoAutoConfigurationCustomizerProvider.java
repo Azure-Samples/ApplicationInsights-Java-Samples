@@ -19,7 +19,6 @@ public class DemoAutoConfigurationCustomizerProvider implements AutoConfiguratio
 
     @Override
     public void customize(AutoConfigurationCustomizer autoConfiguration) {
-        System.out.println("###### DemoAutoConfigurationCustomizerProvider.customize");
 
         autoConfiguration.addSpanExporterCustomizer((spanExporter, configProperties) -> {
             return new DemoSpanExporter(spanExporter);

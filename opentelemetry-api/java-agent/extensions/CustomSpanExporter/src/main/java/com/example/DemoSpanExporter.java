@@ -23,7 +23,6 @@ public class DemoSpanExporter implements SpanExporter {
 
     @Override
     public CompletableResultCode export(Collection<SpanData> collection) {
-        System.out.println("###### DemoSpanExporter.export called");
         List<SpanData> copiedList = new ArrayList<>();
         for(SpanData spanData : collection) {
             List<EventData> events = spanData.getEvents();
