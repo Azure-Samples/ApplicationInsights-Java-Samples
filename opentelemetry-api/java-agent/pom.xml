@@ -12,7 +12,9 @@
     <artifactId>java-agent</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>TrackCustomException</module>
+      <module>TrackCustomException</module>
+      <module>TelemetryFilteredBaseOnSpanEvents</module>
+      <module>extensions</module>
     </modules>
 
     <properties>
