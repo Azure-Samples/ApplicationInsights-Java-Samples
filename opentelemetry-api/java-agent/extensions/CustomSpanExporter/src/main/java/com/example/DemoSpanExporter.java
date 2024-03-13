@@ -53,9 +53,4 @@ public class DemoSpanExporter implements SpanExporter {
     public CompletableResultCode shutdown() {
         return CompletableResultCode.ofSuccess();
     }
-
-    @Override
-    public void close() {
-        SpanExporter.super.close();
-    }
 }
