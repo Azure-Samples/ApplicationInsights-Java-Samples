@@ -34,4 +34,4 @@ After it's finished running, go to Application Insights portal logs blade, query
   | where name == 'myShortDurationSpan'
   ```
 
-Verify that request with longer than 5 seconds duration is not emitted, i.e. requests table should not have any entry with name `myShortDurationSpan` and none with name "myLongDurationSpan".
+Verify that request with longer than 5 seconds duration is not emitted, i.e. requests table should not have any entry with name `myShortDurationSpan` and none with name `myLongDurationSpan`.
