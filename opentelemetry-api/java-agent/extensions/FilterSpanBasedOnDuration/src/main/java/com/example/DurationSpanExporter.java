@@ -30,7 +30,7 @@ public class DurationSpanExporter implements SpanExporter {
     }
 
     private static double getRequestDurationInSeconds(SpanData spanData) {
-        return TimeUnit.SECONDS.convert(spanData.getEndEpochNanos() - spanData.getStartEpochNanos(), TimeUnit.NANOSECONDS);
+        return TimeUnit.MILLISECONDS.convert(spanData.getEndEpochNanos() - spanData.getStartEpochNanos(), TimeUnit.NANOSECONDS) / 1000.0;
     }
 
     @Override
