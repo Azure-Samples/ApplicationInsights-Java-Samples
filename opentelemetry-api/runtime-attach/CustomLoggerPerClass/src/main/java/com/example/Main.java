@@ -1,6 +1,7 @@
 package com.example;
 
 import com.microsoft.applicationinsights.attach.ApplicationInsights;
+import io.micrometer.core.instrument.Metrics;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
@@ -16,5 +17,9 @@ public class Main {
         MyLogger2 myLogger2 = new MyLogger2();
         myLogger2.trackError();
         Thread.sleep(6000); // wait at least 5 seconds to give batch LogRecord processor time to export
+
+
+        Metrics.counter("test.counter.exclude.me").increment();
+        Thread.sleep(6000);
     }
 }

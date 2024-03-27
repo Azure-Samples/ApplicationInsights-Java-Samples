@@ -1,8 +1,8 @@
 {
   "connectionString": "<your connection string>",
   "role": {
-    "name": "my cloud role name",
-    "instance": "my cloud role instance"
+    "name": "runtime-attach-role-name",
+    "instance": "runtime-attach-role-instance"
   },
   "selfDiagnostics": {
     "level": "DEBUG"
@@ -11,5 +11,18 @@
     "logging": {
       "enabled": "false"
     }
+  },
+  "preview": {
+    "processors": [
+      {
+        "type": "metric-filter",
+        "exclude": {
+          "matchType": "strict",
+          "metricNames": [
+            "test.counter.exclude.me"
+          ]
+        }
+      }
+    ]
   }
 }
