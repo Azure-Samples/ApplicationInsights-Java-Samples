@@ -17,7 +17,6 @@ public class DemoSpanExporter implements SpanExporter {
 
     public final SpanExporter delegate;
 
-
     public DemoSpanExporter(SpanExporter delegate) {
         this.delegate = delegate;
     }
