@@ -1,4 +1,4 @@
-# Use OpenTelemetry Java Agent Extensions to filter telemetry based on request duration longer than 5 seconds
+# Use OpenTelemetry Java Agent Extensions to filter telemetry based on request duration shorter than 5 seconds
 
 This is a sample app demonstrating how to filter request telemetry based on request duration.
 
@@ -31,7 +31,7 @@ After it's finished running, go to Application Insights portal logs blade, query
 
   ```kusto
   requests
-  | where name == 'myShortDurationSpan'
+  | where name == 'myLongDurationSpan'
   ```
 
-Verify that request with longer than 5 seconds duration is not emitted, i.e. requests table should not have any entry with name `myShortDurationSpan` and none with name `myLongDurationSpan`.
+Verify that request with longer than 5 seconds duration is not emitted, i.e. requests table should have any entry with name `myLongDurationSpan` and none with name `myShortDurationSpan`.

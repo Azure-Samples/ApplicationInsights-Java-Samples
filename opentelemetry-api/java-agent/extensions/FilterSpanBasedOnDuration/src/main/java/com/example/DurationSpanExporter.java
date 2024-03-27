@@ -21,15 +21,15 @@ public class DurationSpanExporter implements SpanExporter {
     public CompletableResultCode export(Collection<SpanData> collection) {
         List<SpanData> copiedList = new ArrayList<>();
         for(SpanData spanData : collection) {
-            long duration = getRequestDurationInSeconds(spanData);
-            if (duration < 5) { // ignore spans with duration greater than 5 seconds
+            double duration = getRequestDurationInSeconds(spanData);
+            if (duration > 5) { // ignore spans with duration less than 5 seconds
                 copiedList.add(spanData);
             }
         }
         return delegate.export(copiedList);
     }
 
-    private static long getRequestDurationInSeconds(SpanData spanData) {
+    private static double getRequestDurationInSeconds(SpanData spanData) {
         return TimeUnit.SECONDS.convert(spanData.getEndEpochNanos() - spanData.getStartEpochNanos(), TimeUnit.NANOSECONDS);
     }
 
