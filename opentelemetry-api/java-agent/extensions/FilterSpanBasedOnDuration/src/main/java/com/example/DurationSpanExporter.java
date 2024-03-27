@@ -1,0 +1,45 @@
+package com.example;
+
+import io.opentelemetry.sdk.common.CompletableResultCode;
+import io.opentelemetry.sdk.trace.data.SpanData;
+import io.opentelemetry.sdk.trace.export.SpanExporter;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+public class DurationSpanExporter implements SpanExporter {
+
+    public final SpanExporter delegate;
+
+    public DurationSpanExporter(SpanExporter delegate) {
+        this.delegate = delegate;
+    }
+
+    @Override
+    public CompletableResultCode export(Collection<SpanData> collection) {
+        List<SpanData> copiedList = new ArrayList<>();
+        for(SpanData spanData : collection) {
+            long duration = getRequestDurationInSeconds(spanData);
+            if (duration < 5) { // ignore spans with duration greater than 5 seconds
+                copiedList.add(spanData);
+            }
+        }
+        return delegate.export(copiedList);
+    }
+
+    private static long getRequestDurationInSeconds(SpanData spanData) {
+        return TimeUnit.SECONDS.convert(spanData.getEndEpochNanos() - spanData.getStartEpochNanos(), TimeUnit.NANOSECONDS);
+    }
+
+    @Override
+    public CompletableResultCode flush() {
+        return CompletableResultCode.ofSuccess();
+    }
+
+    @Override
+    public CompletableResultCode shutdown() {
+        return CompletableResultCode.ofSuccess();
+    }
+}
