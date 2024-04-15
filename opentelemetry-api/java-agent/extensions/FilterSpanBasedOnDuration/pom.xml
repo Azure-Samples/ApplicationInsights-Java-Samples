@@ -19,7 +19,7 @@
     <dependency>
       <groupId>io.opentelemetry</groupId>
       <artifactId>opentelemetry-sdk-common</artifactId>
-      <version>1.36.0</version>
+      <version>1.37.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
