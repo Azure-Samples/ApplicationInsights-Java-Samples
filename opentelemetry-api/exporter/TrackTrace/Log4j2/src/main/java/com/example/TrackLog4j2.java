@@ -1,7 +1,6 @@
 package com.example;
 
 import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
-import com.azure.monitor.opentelemetry.exporter.implementation.ResourceAttributes;
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.trace.Span;
@@ -18,6 +17,9 @@ import org.slf4j.MDC;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static io.opentelemetry.semconv.ServiceAttributes.SERVICE_NAME;
+import static io.opentelemetry.semconv.incubating.ServiceIncubatingAttributes.SERVICE_INSTANCE_ID;
 
 public class TrackLog4j2 {
 
@@ -75,8 +77,8 @@ public class TrackLog4j2 {
         AutoConfiguredOpenTelemetrySdkBuilder sdkBuilder = AutoConfiguredOpenTelemetrySdk.builder()
             .addResourceCustomizer((resource, configProperties) ->
                 resource.merge(Resource.getDefault().toBuilder()
-                    .put(ResourceAttributes.SERVICE_NAME, "my cloud role name")
-                    .put(ResourceAttributes.SERVICE_INSTANCE_ID, "my cloud instance id")
+                    .put(SERVICE_NAME, "my cloud role name")
+                    .put(SERVICE_INSTANCE_ID, "my cloud instance id")
                     .build()));
         new AzureMonitorExporterBuilder()
             .connectionString(CONNECTION_STRING)

@@ -1,7 +1,6 @@
 package com.example;
 
 import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
-import com.azure.monitor.opentelemetry.exporter.implementation.ResourceAttributes;
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.trace.Span;
@@ -10,8 +9,11 @@ import io.opentelemetry.instrumentation.logback.appender.v1_0.OpenTelemetryAppen
 import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
 import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdkBuilder;
 import io.opentelemetry.sdk.resources.Resource;
+import io.opentelemetry.semconv.incubating.ServiceIncubatingAttributes;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+
+import static io.opentelemetry.semconv.ServiceAttributes.SERVICE_NAME;
 
 public class TrackLogback {
 
@@ -49,8 +51,8 @@ public class TrackLogback {
         AutoConfiguredOpenTelemetrySdkBuilder sdkBuilder = AutoConfiguredOpenTelemetrySdk.builder()
             .addResourceCustomizer((resource, configProperties) ->
                 resource.merge(Resource.getDefault().toBuilder()
-                    .put(ResourceAttributes.SERVICE_NAME, "my cloud role name")
-                    .put(ResourceAttributes.SERVICE_INSTANCE_ID, "my cloud instance id")
+                    .put(SERVICE_NAME, "my cloud role name")
+                    .put(ServiceIncubatingAttributes.SERVICE_INSTANCE_ID, "my cloud instance id")
                     .build()));
         new AzureMonitorExporterBuilder()
             .connectionString(CONNECTION_STRING)
