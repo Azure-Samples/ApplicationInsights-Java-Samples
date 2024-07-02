@@ -58,7 +58,7 @@
       <dependency>
         <groupId>com.azure</groupId>
         <artifactId>azure-monitor-opentelemetry-exporter</artifactId>
-        <version>1.0.0-beta.24</version>
+        <version>1.0.0-beta.25</version>
       </dependency>
       <dependency>
         <groupId>io.opentelemetry.instrumentation</groupId>
@@ -69,6 +69,11 @@
         <groupId>io.opentelemetry.instrumentation</groupId>
         <artifactId>opentelemetry-logback-appender-1.0</artifactId>
         <version>2.5.0-alpha</version>
+      </dependency>
+      <dependency>
+        <groupId>io.opentelemetry.semconv</groupId>
+        <artifactId>opentelemetry-semconv-incubating</artifactId>
+        <version>1.25.0-alpha</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
