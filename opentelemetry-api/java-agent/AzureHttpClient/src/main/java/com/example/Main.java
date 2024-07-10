@@ -13,10 +13,10 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         List<HttpPipelinePolicy> policies = new ArrayList<>();
         // add policies to httpclient instance via HttpPolicyProviders.addAfterRetryPolicies(policies)
-        HttpPolicyProviders.addAfterRetryPolicies(policies);
+        HttpPolicyProviders.addAfterRetryPolicies(policies); // MANDATORY: Adds an instrumentation policy to the HttpClient instance.
         policies.add(new HttpLoggingPolicy(new HttpLogOptions()));
 
         HttpPipelineBuilder pipelineBuilder = new HttpPipelineBuilder();
@@ -26,5 +26,6 @@ public class Main {
             Context.NONE);
         response.close();
         System.out.println(response.getStatusCode());
+        Thread.sleep(8000); // give it extra time for data to flow to Application Insights kusto.
     }
 }

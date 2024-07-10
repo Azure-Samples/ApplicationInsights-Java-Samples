@@ -10,7 +10,7 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
-  <artifactId>TestAzureCore</artifactId>
+  <artifactId>AzureHttpClient</artifactId>
 
   <properties>
     <java.version>1.8</java.version>
@@ -26,16 +26,6 @@
       <groupId>com.azure</groupId>
       <artifactId>azure-core-http-netty</artifactId>
       <version>1.15.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>4.5.13</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-logging</groupId>
-      <artifactId>commons-logging</artifactId>
-      <version>1.1.1</version>
     </dependency>
 <!--    <dependency>-->
 <!--      <groupId>com.microsoft.azure</groupId>-->
