@@ -28,7 +28,7 @@
       <dependency>
         <groupId>io.opentelemetry</groupId>
         <artifactId>opentelemetry-sdk</artifactId>
-        <version>1.39.0</version>
+        <version>1.40.0</version>
       </dependency>
       <dependency>
         <groupId>io.opentelemetry</groupId>
@@ -73,7 +73,7 @@
       <dependency>
         <groupId>io.opentelemetry.semconv</groupId>
         <artifactId>opentelemetry-semconv-incubating</artifactId>
-        <version>1.25.0-alpha</version>
+        <version>1.26.0-alpha</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
