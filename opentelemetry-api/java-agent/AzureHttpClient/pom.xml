@@ -27,6 +27,7 @@
       <artifactId>azure-core-http-netty</artifactId>
       <version>1.15.1</version>
     </dependency>
+<!--  this is how to use a local java agent jar-->
 <!--    <dependency>-->
 <!--      <groupId>com.microsoft.azure</groupId>-->
 <!--      <artifactId>applicationinsights-agent</artifactId>-->
@@ -35,6 +36,7 @@
 <!--      <systemPath>${project.basedir}/src/main/resources/applicationinsights-agent-3.5.4-SNAPSHOT.jar</systemPath>-->
 <!--    </dependency>-->
   </dependencies>
+<!--  this is how to use a local java agent jar-->
 <!--  <build>-->
 <!--    <plugins>-->
 <!--      <plugin>-->
@@ -70,8 +72,6 @@
 <!--      </plugin>-->
 <!--    </plugins>-->
 <!--  </build>-->
-
-
     <build>
     <plugins>
       <plugin>
