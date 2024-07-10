@@ -17,6 +17,7 @@
       <module>extensions</module>
       <module>TelemetryFilteredBaseOnRequestDuration</module>
       <module>extensions/FilterSpanBasedOnDuration</module>
+        <module>TestAzureCore</module>
     </modules>
 
     <properties>
