@@ -7,7 +7,15 @@
         <groupId>com.example</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
+      <version>3.3.1</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+  <modelVersion>4.0.0</modelVersion>
 
     <artifactId>java-agent</artifactId>
     <packaging>pom</packaging>
@@ -17,7 +25,8 @@
       <module>extensions</module>
       <module>TelemetryFilteredBaseOnRequestDuration</module>
       <module>extensions/FilterSpanBasedOnDuration</module>
-        <module>AzureHttpClient</module>
+      <module>AzureHttpClient</module>
+      <module>TestAzureJson</module>
     </modules>
 
     <properties>
