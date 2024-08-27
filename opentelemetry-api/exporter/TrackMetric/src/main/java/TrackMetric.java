@@ -13,7 +13,7 @@ import java.util.UUID;
 import static java.util.Arrays.asList;
 
 public class TrackMetric {
-    private static final String CONNECTION_STRING = "<YOUR_CONNECTION_STRING>";
+    private static final String CONNECTION_STRING = "<Your Connection String>";
     private static final OpenTelemetry openTelemetry = initOpenTelemetry();
     private static final Meter meter = openTelemetry.getMeter("my meter");
 
