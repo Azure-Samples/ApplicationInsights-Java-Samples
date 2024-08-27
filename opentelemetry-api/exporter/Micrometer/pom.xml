@@ -21,7 +21,6 @@
     <dependency>
       <groupId>io.opentelemetry</groupId>
       <artifactId>opentelemetry-api</artifactId>
-      <version>1.41.0</version>
     </dependency>
     <dependency>
       <groupId>com.azure</groupId>
@@ -30,7 +29,6 @@
     <dependency>
       <groupId>io.opentelemetry.instrumentation</groupId>
       <artifactId>opentelemetry-micrometer-1.5</artifactId>
-      <version>2.7.0-alpha</version>
     </dependency>
     <dependency>
       <groupId>io.micrometer</groupId>

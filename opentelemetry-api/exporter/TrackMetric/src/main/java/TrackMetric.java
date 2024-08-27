@@ -2,6 +2,7 @@ import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
 import com.azure.monitor.opentelemetry.exporter.implementation.SemanticAttributes;
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.metrics.DoubleHistogram;
+import io.opentelemetry.api.metrics.DoubleHistogramBuilder;
 import io.opentelemetry.api.metrics.Meter;
 import io.opentelemetry.extension.incubator.metrics.ExtendedDoubleHistogramBuilder;
 import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
@@ -12,7 +13,7 @@ import java.util.UUID;
 import static java.util.Arrays.asList;
 
 public class TrackMetric {
-    private static final String CONNECTION_STRING = "<Your Connection String>";
+    private static final String CONNECTION_STRING = "<YOUR_CONNECTION_STRING>";
     private static final OpenTelemetry openTelemetry = initOpenTelemetry();
     private static final Meter meter = openTelemetry.getMeter("my meter");
 

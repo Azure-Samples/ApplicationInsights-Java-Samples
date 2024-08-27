@@ -21,7 +21,6 @@
         <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-api</artifactId>
-            <version>1.41.0</version>
         </dependency>
         <dependency>
             <groupId>io.opentelemetry</groupId>
@@ -41,6 +40,7 @@
         <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-extension-incubator</artifactId>
+            <version>1.36.0-alpha</version>
         </dependency>
         <dependency>
             <groupId>io.opentelemetry</groupId>
