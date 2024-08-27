@@ -2,9 +2,8 @@ import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
 import com.azure.monitor.opentelemetry.exporter.implementation.SemanticAttributes;
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.metrics.DoubleHistogram;
-import io.opentelemetry.api.metrics.DoubleHistogramBuilder;
 import io.opentelemetry.api.metrics.Meter;
-import io.opentelemetry.extension.incubator.metrics.ExtendedDoubleHistogramBuilder;
+import io.opentelemetry.api.incubator.metrics.ExtendedDoubleHistogramBuilder;
 import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
 import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdkBuilder;
 
