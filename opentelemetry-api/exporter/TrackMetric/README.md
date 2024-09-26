@@ -7,7 +7,7 @@ How to run it:
 - Update `CONNECTION_STRING` with your Application Insights resource connection string.
 - Run TrackMetric class
 - Verify there is a log entry that starts with something like this: 
-  `{"ver":1,"name":"Metric","time"`
+  `com.azure.monitor.opentelemetry.exporter.AzureMonitorMetricExporter -- exporting metric: ImmutableMetricData`
 - After it's finished running, go to Application Insights portal logs blade, query the following:
 
 ```kusto
