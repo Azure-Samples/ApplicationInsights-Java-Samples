@@ -16,22 +16,21 @@ public class TrackMetric {
     private static final Meter meter = openTelemetry.getMeter("my meter");
 
     public static void main(String[] args) throws InterruptedException {
-//        trackDoubleHistogram();
-//        Thread.sleep(5000); // wait at least 5 seconds to give batch span processor time to export
+        trackDoubleHistogramWithCustomDimensions();
+        Thread.sleep(5000); // wait at least 5 seconds to give batch span processor time to export
 
         trackGauge();
-    }
-
-    public static void trackGauge() throws InterruptedException {
-        // track a gauge
-        DoubleGauge gauge = meter.gaugeBuilder("gauge" + UUID.randomUUID()).build();
-        gauge.set(111.0);
         Thread.sleep(5000); // wait at least 5 seconds to give batch span processor time to export
 
         openTelemetry.shutdown();
     }
 
-    private static void trackDoubleHistogram() {
+    public static void trackGauge() throws InterruptedException {
+        DoubleGauge gauge = meter.gaugeBuilder("gauge" + UUID.randomUUID()).build();
+        gauge.set(111.0);
+    }
+
+    private static void trackDoubleHistogramWithCustomDimensions() {
         DoubleHistogram histogram =
            meter.histogramBuilder("histogram" + UUID.randomUUID())
                 .build();
