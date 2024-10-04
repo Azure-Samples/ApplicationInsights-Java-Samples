@@ -1,4 +1,5 @@
-import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporterBuilder;
+import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporter;
+
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Metrics;
 import io.opentelemetry.api.OpenTelemetry;
@@ -30,9 +31,7 @@ public class Micrometer {
 
     private static OpenTelemetry initOpenTelemetry() {
         AutoConfiguredOpenTelemetrySdkBuilder sdkBuilder = AutoConfiguredOpenTelemetrySdk.builder();
-        new AzureMonitorExporterBuilder()
-            .connectionString(CONNECTION_STRING)
-            .install(sdkBuilder);
+        AzureMonitorExporter.customize(sdkBuilder, CONNECTION_STRING);
         return sdkBuilder.build().getOpenTelemetrySdk();
     }
 }
