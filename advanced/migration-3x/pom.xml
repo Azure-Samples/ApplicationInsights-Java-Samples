@@ -27,7 +27,7 @@
     <dependency>
       <groupId>com.microsoft.azure</groupId>
       <artifactId>applicationinsights-web</artifactId>
-      <version>3.6.1</version>
+      <version>3.6.2</version>
     </dependency>
     <dependency>
       <groupId>io.opentelemetry</groupId>
