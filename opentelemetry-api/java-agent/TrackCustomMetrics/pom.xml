@@ -68,9 +68,9 @@
         <configuration>
           <groupId>com.microsoft.azure</groupId>
           <artifactId>applicationinsights-agent</artifactId>
-          <version>3.4.18-SNAPSHOT</version>
+          <version>3.6.2</version>
           <packaging>jar</packaging>
-          <file>${project.basedir}/lib/applicationinsights-agent-3.4.18-SNAPSHOT.jar</file>
+          <file>${project.basedir}/lib/applicationinsights-agent-3.6.2.jar</file>
           <generatePom>true</generatePom>
         </configuration>
         <executions>
