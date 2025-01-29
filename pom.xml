@@ -36,8 +36,8 @@
       </dependency>
       <dependency>
         <groupId>com.azure</groupId>
-        <artifactId>azure-monitor-opentelemetry-exporter</artifactId>
-        <version>1.0.0-beta.31</version>
+        <artifactId>azure-monitor-opentelemetry-autoconfigure</artifactId>
+        <version>1.0.0-beta.1</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

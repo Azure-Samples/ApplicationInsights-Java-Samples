@@ -1,7 +1,6 @@
 package com.example;
 
-import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporter;
-
+import com.azure.monitor.opentelemetry.autoconfigure.AzureMonitorAutoConfigure;
 import io.opentelemetry.api.OpenTelemetry;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanKind;
@@ -10,8 +9,6 @@ import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.context.Scope;
 import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
 import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdkBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class TrackDependency {
 
@@ -43,7 +40,7 @@ public class TrackDependency {
 
     private static OpenTelemetry initOpenTelemetry() {
         AutoConfiguredOpenTelemetrySdkBuilder sdkBuilder = AutoConfiguredOpenTelemetrySdk.builder();
-        AzureMonitorExporter.customize(sdkBuilder, CONNECTION_STRING);
+        AzureMonitorAutoConfigure.customize(sdkBuilder, CONNECTION_STRING);
         return sdkBuilder.build().getOpenTelemetrySdk();
     }
 }
