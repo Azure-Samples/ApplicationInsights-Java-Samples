@@ -1,7 +1,7 @@
 # Track Exceptions using Azure Monitor OpenTelemetry Exporter
 
 This is a sample app demonstrating how to send exceptions to Application Insights using
-[Azure Monitor OpenTelemetry Exporter](https://central.sonatype.com/artifact/com.azure/azure-monitor-opentelemetry-exporter/1.0.0-beta.8).
+[Azure Monitor OpenTelemetry SDK Autoconfigure Distro](https://central.sonatype.com/artifact/com.azure/azure-monitor-opentelemetry-autoconfigure).
 
 How to run it:
 - Update `CONNECTION_STRING` with your Application Insights resource connection string.

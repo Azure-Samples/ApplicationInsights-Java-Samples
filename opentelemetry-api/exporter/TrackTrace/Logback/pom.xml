@@ -41,7 +41,7 @@
         </dependency>
         <dependency>
             <groupId>com.azure</groupId>
-            <artifactId>azure-monitor-opentelemetry-exporter</artifactId>
+            <artifactId>azure-monitor-opentelemetry-autoconfigure</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

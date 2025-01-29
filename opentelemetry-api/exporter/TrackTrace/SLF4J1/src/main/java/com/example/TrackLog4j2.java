@@ -1,6 +1,6 @@
 package com.example;
 
-import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporter;
+import com.azure.monitor.opentelemetry.autoconfigure.AzureMonitorAutoConfigure;
 
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.OpenTelemetry;
@@ -52,7 +52,7 @@ public class TrackLog4j2 {
                     .put(SERVICE_NAME, "my cloud role name")
                     .put(SERVICE_INSTANCE_ID, "my cloud instance id")
                     .build()));
-        AzureMonitorExporter.customize(sdkBuilder, CONNECTION_STRING);
+        AzureMonitorAutoConfigure.customize(sdkBuilder, CONNECTION_STRING);
         return sdkBuilder.build().getOpenTelemetrySdk();
     }
 

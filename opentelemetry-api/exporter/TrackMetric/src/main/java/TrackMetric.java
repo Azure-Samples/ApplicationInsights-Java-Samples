@@ -1,6 +1,6 @@
-import com.azure.monitor.opentelemetry.exporter.AzureMonitorExporter;
+import com.azure.monitor.opentelemetry.autoconfigure.AzureMonitorAutoConfigure;
 
-import com.azure.monitor.opentelemetry.exporter.implementation.SemanticAttributes;
+import com.azure.monitor.opentelemetry.autoconfigure.implementation.SemanticAttributes;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.metrics.DoubleGauge;
 import io.opentelemetry.api.metrics.DoubleHistogram;
@@ -46,7 +46,7 @@ public class TrackMetric {
 
     private static OpenTelemetrySdk initOpenTelemetry() {
         AutoConfiguredOpenTelemetrySdkBuilder sdkBuilder = AutoConfiguredOpenTelemetrySdk.builder();
-        AzureMonitorExporter.customize(sdkBuilder, CONNECTION_STRING);
+        AzureMonitorAutoConfigure.customize(sdkBuilder, CONNECTION_STRING);
         return sdkBuilder.build().getOpenTelemetrySdk();
     }
 }
