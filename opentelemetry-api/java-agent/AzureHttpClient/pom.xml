@@ -25,7 +25,7 @@
     <dependency>
       <groupId>com.azure</groupId>
       <artifactId>azure-core-http-netty</artifactId>
-      <version>1.15.10</version>
+      <version>1.15.11</version>
     </dependency>
 <!--  this is how to use a local java agent jar-->
 <!--    <dependency>-->
