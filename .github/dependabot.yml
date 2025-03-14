@@ -3,7 +3,11 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
 
   - package-ecosystem: "maven"
     directory: "/"
@@ -12,7 +16,11 @@ updates:
         # Spring Boot 3 would limit samples to only run on Java 17
         versions: [ "[3,)" ]
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
 
   - package-ecosystem: "gradle"
     directory: "/gradle-groovy-dsl"
@@ -21,7 +29,11 @@ updates:
         # Spring Boot 3 would limit samples to only run on Java 17
         versions: [ "[3,)" ]
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
 
   - package-ecosystem: "gradle"
     directory: "/gradle-kotlin-dsl"
@@ -30,4 +42,8 @@ updates:
         # Spring Boot 3 would limit samples to only run on Java 17
         versions: [ "[3,)" ]
     schedule:
-      interval: "daily"
+      interval: "weekly"
+    groups:
+      all-dependencies:
+        patterns:
+          - "*"
