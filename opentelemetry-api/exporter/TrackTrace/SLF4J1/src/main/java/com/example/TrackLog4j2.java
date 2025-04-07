@@ -4,6 +4,7 @@ import com.azure.monitor.opentelemetry.autoconfigure.AzureMonitorAutoConfigure;
 
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.context.Scope;
 import io.opentelemetry.instrumentation.log4j.appender.v2_17.OpenTelemetryAppender;
@@ -14,11 +15,12 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 import static io.opentelemetry.semconv.ServiceAttributes.SERVICE_NAME;
-import static io.opentelemetry.semconv.incubating.ServiceIncubatingAttributes.SERVICE_INSTANCE_ID;
 
 public class TrackLog4j2 {
 
     private static final String CONNECTION_STRING = "<Your Connection String>";
+    private static final AttributeKey<String> SERVICE_INSTANCE_ID = AttributeKey.stringKey("service.instance.id");
+
     private static final org.slf4j.Logger slf4j_1_Logger = LoggerFactory.getLogger(TrackLog4j2.class);
 
     public static void main(String[] args) throws InterruptedException {

@@ -3,13 +3,13 @@ package com.example;
 import com.azure.monitor.opentelemetry.autoconfigure.AzureMonitorAutoConfigure;
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.context.Scope;
 import io.opentelemetry.instrumentation.logback.appender.v1_0.OpenTelemetryAppender;
 import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
 import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdkBuilder;
 import io.opentelemetry.sdk.resources.Resource;
-import io.opentelemetry.semconv.incubating.ServiceIncubatingAttributes;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
@@ -18,6 +18,8 @@ import static io.opentelemetry.semconv.ServiceAttributes.SERVICE_NAME;
 public class TrackLogback {
 
     private static final String CONNECTION_STRING = "<Your Connection String>";
+    private static final AttributeKey<String> SERVICE_INSTANCE_ID = AttributeKey.stringKey("service.instance.id");
+
     private static final org.slf4j.Logger slf4jLogger = LoggerFactory.getLogger("slf4j-logger");
 
     public static void main(String[] args) throws InterruptedException {
@@ -52,7 +54,7 @@ public class TrackLogback {
             .addResourceCustomizer((resource, configProperties) ->
                 resource.merge(Resource.getDefault().toBuilder()
                     .put(SERVICE_NAME, "my cloud role name")
-                    .put(ServiceIncubatingAttributes.SERVICE_INSTANCE_ID, "my cloud instance id")
+                    .put(SERVICE_INSTANCE_ID, "my cloud instance id")
                     .build()));
         AzureMonitorAutoConfigure.customize(sdkBuilder, CONNECTION_STRING);
         return sdkBuilder.build().getOpenTelemetrySdk();

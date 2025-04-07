@@ -35,11 +35,6 @@
           <artifactId>opentelemetry-logback-appender-1.0</artifactId>
         </dependency>
         <dependency>
-          <groupId>io.opentelemetry.semconv</groupId>
-          <artifactId>opentelemetry-semconv-incubating</artifactId>
-          <version>1.30.0-alpha</version>
-        </dependency>
-        <dependency>
             <groupId>com.azure</groupId>
             <artifactId>azure-monitor-opentelemetry-autoconfigure</artifactId>
         </dependency>
@@ -51,12 +46,12 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.5.17</version>
+            <version>1.5.18</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.5.17</version>
+            <version>1.5.18</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
