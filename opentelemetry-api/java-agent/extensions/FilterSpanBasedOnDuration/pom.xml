@@ -19,13 +19,13 @@
     <dependency>
       <groupId>io.opentelemetry</groupId>
       <artifactId>opentelemetry-sdk-common</artifactId>
-      <version>1.49.0</version>
+      <version>1.53.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>io.opentelemetry</groupId>
       <artifactId>opentelemetry-sdk-trace</artifactId>
-      <version>1.49.0</version>
+      <version>1.53.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -37,7 +37,7 @@
     <dependency>
       <groupId>io.opentelemetry</groupId>
       <artifactId>opentelemetry-sdk-extension-autoconfigure-spi</artifactId>
-      <version>1.49.0</version>
+      <version>1.53.0</version>
     </dependency>
     <dependency>
       <groupId>com.google.auto.service</groupId>
