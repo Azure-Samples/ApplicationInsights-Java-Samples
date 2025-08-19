@@ -17,7 +17,7 @@
 
   <properties>
     <java.version>1.8</java.version>
-    <applicationinsights.agent.version>3.7.1</applicationinsights.agent.version>
+    <applicationinsights.agent.version>3.7.4</applicationinsights.agent.version>
   </properties>
 
   <dependencies>
