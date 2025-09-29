@@ -1,6 +1,6 @@
 import com.azure.monitor.opentelemetry.autoconfigure.AzureMonitorAutoConfigure;
 
-import com.azure.monitor.opentelemetry.autoconfigure.implementation.SemanticAttributes;
+import io.opentelemetry.api.common.AttributeKey;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.metrics.DoubleGauge;
 import io.opentelemetry.api.metrics.DoubleHistogram;
@@ -36,9 +36,9 @@ public class TrackMetric {
            meter.histogramBuilder("histogram" + UUID.randomUUID())
                 .build();
         Attributes attributes = Attributes.of(
-            SemanticAttributes.HTTP_ROUTE, "/api",
-            SemanticAttributes.HTTP_METHOD, "GET",
-            SemanticAttributes.HTTP_STATUS_CODE, 200L);
+            AttributeKey.stringKey("http.route"), "/api",
+            AttributeKey.stringKey("http.request.method"), "GET",
+            AttributeKey.longKey("http.response.status_code"), 200L);
         histogram.record(5.0, attributes);
         histogram.record(15.0, attributes);
         histogram.record(20.0, attributes);
