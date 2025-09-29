@@ -1,6 +1,5 @@
 import com.azure.monitor.opentelemetry.autoconfigure.AzureMonitorAutoConfigure;
 
-import com.azure.monitor.opentelemetry.autoconfigure.implementation.SemanticAttributes;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.metrics.DoubleGauge;
 import io.opentelemetry.api.metrics.DoubleHistogram;
@@ -8,6 +7,7 @@ import io.opentelemetry.api.metrics.Meter;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
 import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk;
 import io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdkBuilder;
+import io.opentelemetry.semconv.trace.attributes.SemanticAttributes;
 
 import java.util.UUID;
 
