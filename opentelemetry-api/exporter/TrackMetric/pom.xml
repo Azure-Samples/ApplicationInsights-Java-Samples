@@ -30,12 +30,12 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.13.4</version>
+            <version>6.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.13.4</version>
+            <version>6.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.opentelemetry</groupId>
@@ -57,12 +57,12 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.5.18</version>
+            <version>1.5.19</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.5.18</version>
+            <version>1.5.19</version>
         </dependency>
     </dependencies>
 
