@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.microsoft.azure</groupId>
             <artifactId>applicationinsights-runtime-attach</artifactId>
-            <version>3.7.5</version>
+            <version>3.7.6</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -46,12 +46,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>3.5.6</version>
+            <version>3.5.7</version>
         </dependency>
       <dependency>
         <groupId>io.micrometer</groupId>
         <artifactId>micrometer-core</artifactId>
-        <version>1.15.5</version>
+        <version>1.16.0</version>
         <scope>compile</scope>
       </dependency>
     </dependencies>
@@ -62,7 +62,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.5.6</version>
+                <version>3.5.7</version>
                 <executions>
                     <execution>
                         <goals>

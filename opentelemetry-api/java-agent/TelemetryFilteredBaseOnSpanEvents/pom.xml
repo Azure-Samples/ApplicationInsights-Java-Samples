@@ -17,7 +17,7 @@
 
   <properties>
     <java.version>1.8</java.version>
-    <applicationinsights.agent.version>3.7.5</applicationinsights.agent.version>
+    <applicationinsights.agent.version>3.7.6</applicationinsights.agent.version>
   </properties>
 
   <dependencies>
@@ -28,7 +28,7 @@
     <dependency>
       <groupId>io.opentelemetry</groupId>
       <artifactId>opentelemetry-api</artifactId>
-      <version>1.55.0</version>
+      <version>1.56.0</version>
     </dependency>
     <dependency>
       <groupId>io.opentelemetry</groupId>
@@ -38,7 +38,7 @@
     <dependency>
       <groupId>io.opentelemetry</groupId>
       <artifactId>opentelemetry-sdk-extension-autoconfigure-spi</artifactId>
-      <version>1.55.0</version>
+      <version>1.56.0</version>
     </dependency>
     <dependency>
       <groupId>io.opentelemetry.instrumentation</groupId>
