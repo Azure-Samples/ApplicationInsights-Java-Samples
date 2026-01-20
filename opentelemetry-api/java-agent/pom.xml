@@ -16,7 +16,9 @@
       <module>TelemetryFilteredBaseOnSpanEvents</module>
       <module>extensions</module>
       <module>TelemetryFilteredBaseOnRequestDuration</module>
+      <module>TelemetryFilteredBaseOnLogBody</module>
       <module>extensions/FilterSpanBasedOnDuration</module>
+      <module>extensions/FilterLogBasedOnBody</module>
         <module>AzureHttpClient</module>
     </modules>
 
