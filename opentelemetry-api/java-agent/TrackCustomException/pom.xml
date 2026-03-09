@@ -27,7 +27,7 @@
         <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-api</artifactId>
-            <version>1.57.0</version>
+            <version>1.60.1</version>
         </dependency>
         <dependency>
             <groupId>io.opentelemetry</groupId>
@@ -47,7 +47,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.9.0</version>
+        <version>3.10.0</version>
         <executions>
           <execution>
             <id>copy-agent</id>
